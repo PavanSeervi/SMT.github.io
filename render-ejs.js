@@ -2,39 +2,20 @@ const ejs = require('ejs');
 const fs = require('fs');
 const path = require('path');
 
-// Paths to your views and output folder
-const viewsPath = path.join(__dirname, 'views');
-const outputPath = path.join(__dirname, 'dist');
+// Define the EJS file paths
+const files = ['index', 'paints', 'electrical', 'hardware', 'sanitary', 'plumbing', 'checkout'];
 
-// Ensure the output directory exists
-if (!fs.existsSync(outputPath)) {
-    fs.mkdirSync(outputPath);
-}
+files.forEach(file => {
+    const templatePath = path.join(__dirname, 'views', `${file}.ejs`);
+    const outputPath = path.join(__dirname, `${file}.html`);
 
-// Render function to convert EJS to HTML
-const renderEJS = (filename) => {
-    const filePath = path.join(viewsPath, filename);
-    ejs.renderFile(filePath, {}, (err, html) => {
+    ejs.renderFile(templatePath, {}, (err, html) => {
         if (err) {
-            console.error(`Error rendering ${filename}:`, err);
-        } else {
-            const outputFilename = filename.replace('.ejs', '.html');
-            fs.writeFileSync(path.join(outputPath, outputFilename), html);
-            console.log(`${outputFilename} has been created.`);
+            console.error(`Error rendering ${file}.ejs:`, err);
+            return;
         }
+
+        fs.writeFileSync(outputPath, html);
+        console.log(`${file}.html has been generated.`);
     });
-};
-
-// List of your EJS files
-const ejsFiles = [
-    'index.ejs',
-    'paints.ejs',
-    'electrical.ejs',
-    'hardware.ejs',
-    'sanitary.ejs',
-    'plumbing.ejs',
-    'checkout.ejs'
-];
-
-// Render each file
-ejsFiles.forEach(renderEJS);
+});
