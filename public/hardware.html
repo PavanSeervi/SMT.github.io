@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical - Sri Matha Traders</title>
+    <link rel="stylesheet" href="/public/styles.css">
+    <style>
+        body {
+            font-family: fangsong, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            padding: 10px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo {
+            height: 100px;
+            width: 100px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .nav-link {
+            color: black;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+            padding: 8px 15px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 3px;
+        }
+
+        .nav-link:hover {
+            background-color: #ff6f61;
+            color: #fff;
+        }
+
+        .category-detail-section {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .category-detail-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/assets/hardware.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .category-detail-section>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .filter-options {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            padding: 10px;
+            z-index: 2;
+        }
+
+        .filter-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .filter-btn-main {
+            padding: 6px 30px;
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .filter-btn-main:hover {
+            background-color: #e55b4e;
+        }
+
+        .filter-list {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            margin-top: 5px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .filter-dropdown:hover .filter-list,
+        .filter-list:hover {
+            display: block;
+        }
+
+        .filter-list .filter-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-list .filter-btn:last-child {
+            border-bottom: none;
+        }
+
+        .filter-list .filter-btn:hover {
+            background-color: #f1f1f1;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-top: 100px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .card span {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card .add-to-cart-btn {
+            display: inline-block;
+            background-color: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .card .add-to-cart-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .cart {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .cart.hidden {
+            display: none;
+        }
+
+        #checkout-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #checkout-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: static;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            color: black;
+            padding: 8px 16px;
+            text-decoration: none;
+            margin: 0 5px;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .pagination a.active {
+            background-color: #ff6f61;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .nav-link {
+                margin: 0 10px;
+                font-size: 14px;
+            }
+
+            .card-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .card img {
+                max-height: 120px;
+            }
+
+            .footer {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .nav-link {
+                display: block;
+                margin: 5px 0;
+            }
+
+            .card-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+
+            .card img {
+                max-height: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <img src="/assets/logo.png" alt="Sri Matha Traders Logo" class="logo">
+        <nav>
+            <a href="/" class="nav-link">Home</a>
+            <a href="sanitary" class="nav-link">Sanitary</a>
+            <a href="/checkout" class="nav-link" id="cart-link">Cart (0)</a>
+        </nav>
+    </header>
+
+    <section class="category-detail-section">
+        <h2 id="electrical-title">Hardware</h2>
+        <p>Explore our range of Hardware products for your needs.</p>
+
+        <div class="filter-options">
+            <div class="filter-dropdown">
+                <button class="filter-btn-main">Filter</button>
+                <div class="filter-list">
+                    <button class="filter-btn" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="Measuring Tapes">Measuring Tapes</button>
+                    <button class="filter-btn" data-filter="Hammers">Hammers</button>
+                    <button class="filter-btn" data-filter="Wrenches">Wrenches</button>
+                    <button class="filter-btn" data-filter="Screw Driver">Screw Driver</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-container">
+
+            <!-- Cards for products go here -->
+
+            <div class="card" data-category="Measuring Tapes">
+                <span>Hi- 16 3M</span>
+                <img src="/assets/Hi-16-3m.jpg" alt="Measuring Tapes">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+            <div class="card" data-category="Measuring Tapes">
+                <span>Hi- 16 5M</span>
+                <img src="/assets/Hi-16-5m.jpg" alt="Measuring Tapes">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+            <div class="card" data-category="Measuring Tapes">
+                <span>Hi- 16 15M</span>
+                <img src="/assets/Hi-16-15m.jpg" alt="Measuring Tapes">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+            <div class="card" data-category="Measuring Tapes">
+                <span>Hi- 16 30M</span>
+                <img src="/assets/Hi-16-30m.jpg" alt="Measuring Tapes">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+            <!-- Hammers -->
+
+            <div class="card" data-category="Hammers">
+                <span>Centering </span>
+                <img src="/assets/centering.jpg" alt="Hammers">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+            <div class="card" data-category="Hammers">
+                <span>Centering rubber </span>
+                <img src="/assets/centering1.jpg" alt="Hammers">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+            <div class="card" data-category="Hammers">
+                <span>Hammer 1LB</span>
+                <img src="/assets/1lb.jpg" alt="Hammers">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+            <div class="card" data-category="Hammers">
+                <span>Hammer 1.5LB</span>
+                <img src="/assets/1.5lb.jpg" alt="Hammers">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+            <div class="card" data-category="Hammers">
+                <span>Hammer 2LB</span>
+                <img src="/assets/2lb.jpg" alt="Hammers">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+            <!-- Wrenches -->
+
+            <div class="card" data-category="Wrenches">
+                <span>Wrenches </span>
+                <img src="/assets/Wrenches.jpg" alt="Wrenches">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+            <!-- Screw Driver -->
+
+            <div class="card" data-category="Screw Driver">
+                <span>Screw Driver </span>
+                <img src="/assets/ScrewDriver.jpg" alt="Screw Driver">
+                <span>Price : </span>
+                <a href="/add-to-cart" class="add-to-cart-btn">Add to Cart</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Sri Matha Traders. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.getAttribute('data-filter');
+
+                    // Filter the cards
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
