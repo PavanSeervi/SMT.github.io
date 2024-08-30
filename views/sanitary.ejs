@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanitary - Sri Matha Traders</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="/assets/logo.png" alt="Sri Matha Traders Logo" class="logo">
+        <h1>SRI MATHA TRADERS</h1>
+        <nav>
+            <a href="/" class="nav-link">Home</a>
+            <a href="plumbing" class="nav-link">Plumbing</a>
+            <a href="checkout" class="nav-link" id="cart-link">Cart</a>
+        </nav>
+    </header>
+
+    <section class="category-detail-section">
+        <h2>Sanitary</h2>
+        <img src="/assets/sanitary.jpg" alt="Sanitary" class="category-detail-image">
+        <p>Browse our sanitary products, including fixtures and accessories.</p>
+
+        <div class="card-container">
+            <% const products=['Toilets', 'Sinks' , 'Faucets' , 'Showers' , 'Bidets' , 'Bathroom Accessories'
+                , 'Towel Rails' , 'Soap Dispensers' , 'Mirrors' , 'Vanity Units' ]; %>
+                <% products.forEach(product=> { %>
+                    <div class="card">
+                        <span>
+                            <%= product %>
+                        </span>
+                        <button class="add-to-cart-btn" data-item="<%= product %>">Add to Cart</button>
+                    </div>
+                    <% }) %>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2023 Sri Matha Traders. All Rights Reserved.</p>
+    </footer>
+
+    <div id="cart" class="cart">
+        <h3>Your Cart</h3>
+        <div id="cart-items"></div>
+        <button id="checkout-btn" class="hidden">Checkout</button>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+
+</html>
