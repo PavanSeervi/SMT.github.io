@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Sri Matha Traders</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: fangsong, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header,
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .logo {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .nav-link {
+            color: black;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+            padding: 8px 15px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 3px;
+        }
+
+        .nav-link:hover {
+            background-color: #ff6f61;
+            color: #fff;
+        }
+
+        .checkout-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .cart-item-quantity input {
+            width: 50px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background-color: #e55b4e;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #checkout-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #checkout-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="Sri Matha Traders Logo" class="logo">
+        <nav>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="checkout" class="nav-link">Cart</a>
+        </nav>
+    </header>
+
+    <section class="checkout-container">
+        <h2>Your Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be injected here by JavaScript -->
+        </div>
+        <div class="total">
+            Total: <span id="total-price">0</span>
+        </div>
+        <button id="checkout-btn">Checkout</button>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2023 Sri Matha Traders. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+
+    </script>
+</body>
+
+</html>

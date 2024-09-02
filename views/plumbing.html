@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plumbing - Sri Matha Traders</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            font-family: fangsong, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            padding: 10px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo {
+            height: 100px;
+            width: 100px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .nav-link {
+            color: black;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+            padding: 8px 15px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 3px;
+        }
+
+        .nav-link:hover {
+            background-color: #ff6f61;
+            color: #fff;
+        }
+
+        .category-detail-section {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            /* Position relative to enable absolute positioning of filter options */
+        }
+
+        .category-detail-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('plumbing.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .category-detail-section>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Filter Dropdown Styles */
+
+        .filter-options {
+            position: absolute;
+            /* Position absolutely to overlap the card container */
+            top: 20px;
+            /* Adjust top position as needed */
+            right: 20px;
+            /* Align to the right of the container */
+            width: auto;
+            /* Adjust width to fit the content */
+            padding: 10px;
+            z-index: 2;
+            /* Ensure it is above the card container */
+        }
+
+        .filter-dropdown {
+            position: relative;
+            display: inline-block;
+            /* Remove width property to fit content */
+        }
+
+        .filter-btn-main {
+            padding: 6px 30px;
+            /* Smaller padding for a smaller button */
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            /* Removed transform */
+            font-size: 14px;
+            /* Smaller font size for a smaller button */
+            text-align: center;
+        }
+
+        .filter-btn-main:hover {
+            background-color: #e55b4e;
+            /* Removed transform to stop zooming effect */
+        }
+
+        .filter-list {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            margin-top: 5px;
+            padding: 10px;
+            width: 100%;
+            /* Adjust the width as needed */
+        }
+
+        .filter-dropdown:hover .filter-list,
+        .filter-list:hover {
+            display: block;
+        }
+
+        .filter-list .filter-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-list .filter-btn:last-child {
+            border-bottom: none;
+        }
+
+        .filter-list .filter-btn:hover {
+            background-color: #f1f1f1;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-top: 100px;
+            /* Adjust to ensure it's not covered by filter options */
+        }
+
+
+        .card .price {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #e55b4e;
+            /* Change color to something that stands out */
+            font-size: 18px;
+            /* Increase font size for better visibility */
+            background-color: #f8f8f8;
+            /* Add a background color */
+            padding: 8px 12px;
+            /* Add some padding for better appearance */
+            border-radius: 5px;
+            /* Rounded corners */
+            border: 1px solid #ddd;
+            /* Add a border */
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .card span {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card .add-to-cart-btn {
+            display: inline-block;
+            background-color: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .card .add-to-cart-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .cart {
+            position: fixed;
+            top: 120px;
+            /* Adjust to position it below the header */
+            left: 20px;
+            /* Distance from the left edge */
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            /* Ensure it is above other elements */
+        }
+
+        .cart.hidden {
+            display: none;
+        }
+
+        #checkout-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #checkout-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: static;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            color: black;
+            padding: 8px 16px;
+            text-decoration: none;
+            margin: 0 5px;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .pagination a.active {
+            background-color: #ff6f61;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="Sri Matha Traders Logo" class="logo">
+        <h1>SRI MATHA TRADERS</h1>
+        <nav>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="paints.html" class="nav-link">Paints</a>
+            <a href="checkout.html" class="nav-link" id="cart-link">Cart</a>
+        </nav>
+    </header>
+
+    <section class="category-detail-section">
+        <br><br>
+
+        <h2 id="paint-title">Plumbing</h2>
+        <p>Explore our selection of plumbing supplies for your projects.</p>
+
+
+        <div class="filter-options">
+            <div class="filter-dropdown">
+                <button class="filter-btn-main">Filter</button>
+                <div class="filter-list">
+                    <button class="filter-btn" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="Pipes">Pipes</button>
+                    <button class="filter-btn" data-filter="Cut Piece">Cut Piece</button>
+                    <button class="filter-btn" data-filter="Fitting">Fitting</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-container">
+
+            <!-- pipes -->
+
+            <div class="card" data-category="Pipes">
+                <img src="SS.jpg" alt="Pipes">
+                <span>4" (S/S)</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+
+            <div class="card" data-category="Pipes">
+                <img src="SS.jpg" alt="Pipes">
+                <span>4" (D/S)</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+
+            <div class="card" data-category="Pipes">
+                <img src="SS.jpg" alt="Pipes">
+                <span>3" (S/S)</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+
+            <div class="card" data-category="Pipes">
+                <img src="SS.jpg" alt="Pipes">
+                <span>3" (D/S)</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <!-- cut piece -->
+
+            <div class="card" data-category="Cut Piece">
+                <img src="Cutpipe.jpg" alt="Pipes">
+                <span>4 &times; 2FT Cut Piece </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Cut Piece">Add to Cart</button>
+            </div>
+
+
+            <div class="card" data-category="Cut Piece">
+                <img src="Cutpipe.jpg" alt="Pipes">
+                <span>4 &times; 4FT Cut Piece </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Cut Piece">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Cut Piece">
+                <img src="Cutpipe.jpg" alt="Pipes">
+                <span>4 &times; 6FT Cut Piece </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Cut Piece">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Cut Piece">
+                <img src="Cutpipe.jpg" alt="Pipes">
+                <span>3 &times; 2FT Cut Piece </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Cut Piece">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Cut Piece">
+                <img src="Cutpipe.jpg" alt="Pipes">
+                <span>3 &times; 4FT Cut Piece </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Cut Piece">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Cut Piece">
+                <img src="Cutpipe.jpg" alt="Pipes">
+                <span>3 &times; 6FT Cut Piece </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Cut Piece">Add to Cart</button>
+            </div>
+
+            <!-- 4 and 3 "Fitting  -->
+
+            <div class="card" data-category="Fitting">
+                <img src="4PBend.jpg" alt="Fitting">
+                <span>4" P.Bend</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="4PBend.jpg" alt="Fitting">
+                <span>3" P.Bend</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+
+            <div class="card" data-category="Fitting">
+                <img src="4DBend.jpg" alt="Fitting">
+                <span>4" D.Bend</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="4DBend.jpg" alt="Fitting">
+                <span>3" D.Bend</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="4tee.jpg" alt="Fitting">
+                <span>4" P.Tee</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="4tee.jpg" alt="Fitting">
+                <span>3" P.Tee</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="4Dtee.jpg" alt="Fitting">
+                <span>4" D.Tee</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="4Dtee.jpg" alt="Fitting">
+                <span>3" D.Tee</span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+
+            <div class="card" data-category="Fitting">
+                <img src="4Y.jpg" alt="Fitting">
+                <span>4" P. Y </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="4Y.jpg" alt="Fitting">
+                <span>3" P. Y </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="3DY.jpg" alt="Fitting">
+                <span>4" D. Y </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="3DY.jpg" alt="Fitting">
+                <span>3" D. Y </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="45.jpg" alt="Fitting">
+                <span>4" &times; 45&deg; </span>
+                <span class="price">Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="45.jpg" alt="Fitting">
+                <span>3" &times; 45&deg; </span>
+                <span class="price">Price : /-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="R.jpg" alt="Fitting">
+                <span>4" &times; 3 Reducer </span>
+                <span class="price">Price : /-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="Coupling.jpg" alt="Fitting">
+                <span>4" Coupling </span>
+                <span class="price">Price : /-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Fitting">
+                <img src="Coupling.jpg" alt="Fitting">
+                <span>3" Coupling </span>
+                <span class="price">Price : /-</span>
+                <button class="add-to-cart-btn" data-item="Fitting">Add to Cart</button>
+            </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2023 Sri Matha Traders. All Rights Reserved.</p>
+    </footer>
+
+    <div id="cart" class="cart">
+        <h3>Your Cart</h3>
+        <div id="cart-items"></div>
+        <button id="checkout-btn" class="hidden">Checkout</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filterButtons = document.querySelectorAll(".filter-btn");
+            const cards = document.querySelectorAll(".card");
+
+            filterButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const filterValue = button.getAttribute("data-filter");
+
+                    cards.forEach(card => {
+                        const cardCategory = card.getAttribute("data-category");
+
+                        if (filterValue === "all" || cardCategory === filterValue) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical - Sri Matha Traders</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: fangsong, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            padding: 10px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo {
+            height: 100px;
+            width: 100px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .nav-link {
+            color: black;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+            padding: 8px 15px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 3px;
+        }
+
+        .nav-link:hover {
+            background-color: #ff6f61;
+            color: #fff;
+        }
+
+        .category-detail-section {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            /* Position relative to enable absolute positioning of filter options */
+        }
+
+        .category-detail-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('electrical.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .category-detail-section>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Filter Dropdown Styles */
+
+        .filter-options {
+            position: absolute;
+            /* Position absolutely to overlap the card container */
+            top: 20px;
+            /* Adjust top position as needed */
+            right: 20px;
+            /* Align to the right of the container */
+            width: auto;
+            /* Adjust width to fit the content */
+            padding: 10px;
+            z-index: 2;
+            /* Ensure it is above the card container */
+        }
+
+        .filter-dropdown {
+            position: relative;
+            display: inline-block;
+            /* Remove width property to fit content */
+        }
+
+        .filter-btn-main {
+            padding: 6px 30px;
+            /* Smaller padding for a smaller button */
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            /* Removed transform */
+            font-size: 14px;
+            /* Smaller font size for a smaller button */
+            text-align: center;
+        }
+
+        .filter-btn-main:hover {
+            background-color: #e55b4e;
+            /* Removed transform to stop zooming effect */
+        }
+
+        .filter-list {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            margin-top: 5px;
+            padding: 10px;
+            width: 100%;
+            /* Adjust the width as needed */
+        }
+
+        .filter-dropdown:hover .filter-list,
+        .filter-list:hover {
+            display: block;
+        }
+
+        .filter-list .filter-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-list .filter-btn:last-child {
+            border-bottom: none;
+        }
+
+        .filter-list .filter-btn:hover {
+            background-color: #f1f1f1;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-top: 100px;
+            /* Adjust to ensure it's not covered by filter options */
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .card span {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card .add-to-cart-btn {
+            display: inline-block;
+            background-color: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .card .add-to-cart-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .cart {
+            position: fixed;
+            top: 120px;
+            /* Adjust to position it below the header */
+            left: 20px;
+            /* Distance from the left edge */
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            /* Ensure it is above other elements */
+        }
+
+        .cart.hidden {
+            display: none;
+        }
+
+        #checkout-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #checkout-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: static;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            color: black;
+            padding: 8px 16px;
+            text-decoration: none;
+            margin: 0 5px;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+
+        .pagination a.active {
+            background-color: #ff6f61;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="Sri Matha Traders Logo" class="logo">
+        <nav>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="hardware.html" class="nav-link">Hardware</a>
+            <a href="checkout.html" class="nav-link" id="cart-link">Cart</a>
+        </nav>
+    </header>
+
+    <section class="category-detail-section">
+        <br><br>
+
+        <h2 id="electrical-title">Electrical</h2>
+        <p>Explore our range of electrical products for your needs.</p>
+
+        <div class="filter-options">
+            <div class="filter-dropdown">
+                <button class="filter-btn-main">Filter</button>
+                <div class="filter-list">
+                    <button class="filter-btn" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="Wires">Wires</button>
+                    <button class="filter-btn" data-filter="Switches">Switches</button>
+                    <button class="filter-btn" data-filter="Sockets">Sockets</button>
+                    <button class="filter-btn" data-filter="MCB">MCBs</button>
+                    <button class="filter-btn" data-filter="Light Bulbs">Light Bulbs</button>
+                    <button class="filter-btn" data-filter="Extension Cords">Extension Cords</button>
+                    <button class="filter-btn" data-filter="Pipes">Pipes</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card" data-category="Wires">
+                <span>Nakoda Wires 1SQ MM</span>
+                <img src="nakoda1.5sq.jpg" alt="Wires">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Wires">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Wires">
+                <span>Nakoda Wires 1.5SQ MM</span>
+                <img src="nakoda1.5sq.jpg" alt="Wires">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Wires">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Wires">
+                <span>Nakoda Wires 2SQ MM</span>
+                <img src="nakoda1.5sq.jpg" alt="Wires">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Wires">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Wires">
+                <span>Nakoda Wires 2.5SQ MM</span>
+                <img src="nakoda1.5sq.jpg" alt="Wires">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Wires">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Wires">
+                <span>Nakoda Wires 4SQ MM</span>
+                <img src="nakoda1.5sq.jpg" alt="Wires">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Wires">Add to Cart</button>
+            </div>
+
+
+            <div class="card" data-category="Sockets">
+                <Span>Anchor SS Combined</Span>
+                <img src="SSCom.jpg" alt="Sockets">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Wires">Add to Cart</button>
+
+            </div>
+
+            <!-- ROMA swithes -->
+
+            <div class="card" data-category="Switches">
+                <span>ROMA 6A Switch</span>
+                <img src="Roma6aSwitch.jpg" alt="Switches">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Switches">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Switches">
+                <span>ROMA 16A Switch</span>
+                <img src="Roma16aSwitch.jpg" alt="Switches">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Switches">Add to Cart</button>
+            </div>
+
+            <!-- ROMA Socket -->
+
+            <div class="card" data-category="Sockets">
+                <span>ROMA 6A Sockets</span>
+                <img src="Roma6a.jpg" alt="Sockets">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Sockets">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Sockets">
+                <span>ROMA 16A Sockets</span>
+                <img src="Roma16a.jpg" alt="Sockets">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Sockets">Add to Cart</button>
+            </div>
+
+            <!-- Anchor Penta Switch -->
+
+            <div class="card" data-category="Switches">
+                <span>PENTA 16A Switch</span>
+                <img src="Pentas6a.jpg" alt="Switches">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Switches">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Switches">
+                <span>PENTA 6A Switch</span>
+                <img src="PentaSW6a.jpg" alt="Switches">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Switches">Add to Cart</button>
+            </div>
+
+            <!-- Penta Socket -->
+
+            <div class="card" data-category="Sockets">
+                <span>PENTA 16A Sockets</span>
+                <img src="Penta16a.jpg" alt="Sockets">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Sockets">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Sockets">
+                <span>PENTA 16A Sockets</span>
+                <img src="Penta16a.jpg" alt="Sockets">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Sockets">Add to Cart</button>
+            </div>
+
+            <!-- MCB -->
+
+            <div class="card" data-category="MCB">
+                <span>MCB 10A</span>
+                <img src="MCBSP.jpg" alt="MCB">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="MCB">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="MCB">
+                <span>MCB 32A</span>
+                <img src="MCBDP.jpg" alt="MCB">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="MCB">Add to Cart</button>
+            </div>
+
+            <!-- led Bulbs -->
+
+            <div class="card" data-category="Light Bulbs">
+                <span>Light Bulbs 5W</span>
+                <img src="led18.jpg" alt="Light Bulbs">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Light Bulbs">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Light Bulbs">
+                <span>Light Bulbs 7W</span>
+                <img src="led18.jpg" alt="Light Bulbs">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Light Bulbs">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Light Bulbs">
+                <span>Light Bulbs 9W</span>
+                <img src="led18.jpg" alt="Light Bulbs">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Light Bulbs">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Light Bulbs">
+                <span>Light Bulbs 10W</span>
+                <img src="led18.jpg" alt="Light Bulbs">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Light Bulbs">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Light Bulbs">
+                <span>Light Bulbs 10W</span>
+                <img src="led18.jpg" alt="Light Bulbs">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Light Bulbs">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Light Bulbs">
+                <span>Light Bulbs 14W</span>
+                <img src="led18.jpg" alt="Light Bulbs">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Light Bulbs">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Light Bulbs">
+                <span>Light Bulbs 18W</span>
+                <img src="led18.jpg" alt="Light Bulbs">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Light Bulbs">Add to Cart</button>
+            </div>
+
+
+            <!-- Extension Cords -->
+
+            <div class="card" data-category="Extension Cords">
+                <span>Anchor Extension Cords</span>
+                <img src="ExtensionCords.jpg" alt="Extension Cords">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Extension Cords">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Extension Cords">
+                <span>Anchor Spike</span>
+                <img src="Anchorspike.jpg" alt="Extension Cords">
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Extension Cords">Add to Cart</button>
+            </div>
+
+
+            <!-- Electric pipe -->
+
+            <div class="card" data-category="Pipes">
+                <img src="1.5pipe.jpg" alt="Pipes">
+                <span>Pipe <i>1" (1.5) G</i></span>
+                <span>Price : 75/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Pipes">
+                <img src="1.5pipe.jpg" alt="Pipes">
+                <span>Pipe <i>3/4" (1.5) G</i></span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Pipes">
+                <img src="1.0pipe.jpg" alt="Pipes">
+                <span>Pipe<i> 1" (1.0) B</i></span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+            <div class="card" data-category="Pipes">
+                <img src="1.0pipe.jpg" alt="Pipes">
+                <span>Pipe <i>3/4" (1.0) B</i></span>
+                <span>Price : 700/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <!-- Electric bend -->
+
+            <div class="card" data-category="Pipes">
+                <img src="1bend.jpg" alt="Pipes">
+                <span>Bend 1" </span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Pipes">
+                <img src="3.4bend.jpg" alt="Pipes">
+                <span>Bend 3/4" </span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <!-- J.Box -->
+
+            <div class="card" data-category="Pipes">
+                <img src="jbox1.jpg" alt="Pipes">
+                <span>J-Box 1"</span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Pipes">
+                <img src="jbox1.jpg" alt="Pipes">
+                <span>J-Box 3/4"</span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <!-- D-box -->
+
+            <div class="card" data-category="Pipes">
+                <img src="Dbox.jpg" alt="Pipes">
+                <span>D-Box 1"</span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+            <div class="card" data-category="Pipes">
+                <img src="Dbox.jpg" alt="Pipes">
+                <span>D-Box 3/4"</span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+
+            <!-- fan box -->
+
+            <div class="card" data-category="Pipes">
+                <img src="Fbox.jpg" alt="Pipes">
+                <span>Fan box </span>
+                <span>Price : 7/-</span>
+                <button class="add-to-cart-btn" data-item="Pipes">Add to Cart</button>
+            </div>
+
+
+            <!-- Add more card elements as needed -->
+        </div>
+
+        <div class="pagination">
+            <a href="#" class="page-link" data-page="1">1</a>
+            <a href="#" class="page-link" data-page="2">2</a>
+            <a href="#" class="page-link" data-page="3">3</a>
+            <!-- Add more page links as needed -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Sri Matha Traders. All rights reserved.</p>
+    </footer>
+
+    <script>
+
+        // JavaScript function to update the title based on the selected filter
+        document.querySelectorAll('.filter-btn').forEach(function (filterButton) {
+            filterButton.addEventListener('click', function () {
+                var filterTitle = this.getAttribute('data-filter');
+                document.getElementById('electrical-title').innerText = filterTitle;
+            });
+        });
+
+        // Function to filter items based on category
+        function filterItems(category) {
+            // Get all the card elements
+            const cards = document.querySelectorAll('.card');
+
+            // Loop through each card and display or hide based on the filter
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';  // Show all items
+                } else {
+                    // Check if the card matches the selected category
+                    const cardCategory = card.getAttribute('data-category');
+                    if (cardCategory === category) {
+                        card.style.display = 'block';  // Show matching item
+                    } else {
+                        card.style.display = 'none';  // Hide non-matching item
+                    }
+                }
+            });
+        }
+
+        // Add click event listeners to the filter buttons
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const category = this.getAttribute('data-filter');
+                filterItems(category);
+            });
+        });
+
+        // Initially show all items
+        filterItems('all');
+        document.addEventListener('DOMContentLoaded', function () {
+            const itemsPerPage = 12;
+            const cards = document.querySelectorAll('.card');
+            const paginationLinks = document.querySelectorAll('.page-link');
+
+            function showPage(pageNumber) {
+                const start = (pageNumber - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                cards.forEach((card, index) => {
+                    if (index >= start && index < end) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                paginationLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Corrected selector for the active page link
+                document.querySelector(`.page-link[data-page="${pageNumber}"]`).classList.add('active');
+            }
+
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const pageNumber = parseInt(this.dataset.page);
+                    showPage(pageNumber);
+                });
+            });
+
+            // Initialize the first page
+            showPage(1);
+        });
+    </script>
+
+</body>
+
+</html>

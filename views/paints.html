@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paints - Sri Matha Traders</title>
+    <link rel="stylesheet" href="/views/styles.css">
+    <style>
+        body {
+            font-family: fangsong, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            padding: 10px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo {
+            height: 100px;
+            width: 100px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .nav-link {
+            color: black;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 20px;
+            padding: 8px 15px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 3px;
+        }
+
+        .nav-link:hover {
+            background-color: #ff6f61;
+            color: #fff;
+        }
+
+        .category-detail-section {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            /* Position relative to enable absolute positioning of filter options */
+        }
+
+        .category-detail-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('paints.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .category-detail-section>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Filter Dropdown Styles */
+
+        .filter-options {
+            position: absolute;
+            /* Position absolutely to overlap the card container */
+            top: 20px;
+            /* Adjust top position as needed */
+            right: 20px;
+            /* Align to the right of the container */
+            width: auto;
+            /* Adjust width to fit the content */
+            padding: 10px;
+            z-index: 2;
+            /* Ensure it is above the card container */
+        }
+
+        .filter-dropdown {
+            position: relative;
+            display: inline-block;
+            /* Remove width property to fit content */
+        }
+
+        .filter-btn-main {
+            padding: 6px 30px;
+            /* Smaller padding for a smaller button */
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            /* Removed transform */
+            font-size: 14px;
+            /* Smaller font size for a smaller button */
+            text-align: center;
+        }
+
+        .filter-btn-main:hover {
+            background-color: #e55b4e;
+            /* Removed transform to stop zooming effect */
+        }
+
+        .filter-list {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            margin-top: 5px;
+            padding: 10px;
+            width: 100%;
+            /* Adjust the width as needed */
+        }
+
+        .filter-dropdown:hover .filter-list,
+        .filter-list:hover {
+            display: block;
+        }
+
+        .filter-list .filter-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-list .filter-btn:last-child {
+            border-bottom: none;
+        }
+
+        .filter-list .filter-btn:hover {
+            background-color: #f1f1f1;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-top: 100px;
+            /* Adjust to ensure it's not covered by filter options */
+        }
+
+
+        .card .price {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #e55b4e;
+            /* Change color to something that stands out */
+            font-size: 18px;
+            /* Increase font size for better visibility */
+            background-color: #f8f8f8;
+            /* Add a background color */
+            padding: 8px 12px;
+            /* Add some padding for better appearance */
+            border-radius: 5px;
+            /* Rounded corners */
+            border: 1px solid #ddd;
+            /* Add a border */
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .card span {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card .add-to-cart-btn {
+            display: inline-block;
+            background-color: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .card .add-to-cart-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .cart {
+            position: fixed;
+            top: 120px;
+            /* Adjust to position it below the header */
+            left: 20px;
+            /* Distance from the left edge */
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            /* Ensure it is above other elements */
+        }
+
+        .cart.hidden {
+            display: none;
+        }
+
+        #checkout-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #checkout-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: static;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .page-link {
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .page-link:hover {
+            background-color: #ff6f61;
+            color: white;
+        }
+
+        .page-link.active {
+            background-color: #ff6f61;
+            color: white;
+            border-color: #ff6f61;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="Sri Matha Traders Logo" class="logo">
+        <nav>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="electrical.html" class="nav-link">Electrical</a>
+            <a href="checkout.html" class="nav-link" id="cart-link">Cart</a>
+        </nav>
+    </header>
+
+    <section class="category-detail-section">
+        <br><br>
+
+        <h2 id="paint-title">Paints</h2>
+        <p>Discover our wide range of quality paints, perfect for any surface.</p>
+
+
+        <div class="filter-options">
+            <div class="filter-dropdown">
+                <button class="filter-btn-main">Filter</button>
+                <div class="filter-list">
+                    <button class="filter-btn" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="Brush">Paint Brush</button>
+                    <button class="filter-btn" data-filter="roller">Roller</button>
+                    <button class="filter-btn" data-filter="enamel">Apcolite Gloss Enamel</button>
+                    <button class="filter-btn" data-filter="Tractor">Tractor Emulsion</button>
+                    <button class="filter-btn" data-filter="Ace">Ace</button>
+                    <button class="filter-btn" data-filter="Apex">Apex </button>
+                    <button class="filter-btn" data-filter="Premium">Premium Emulsion</button>
+                    <button class="filter-btn" data-filter="Apex Ultima">Apex Ultima</button>
+                    <button class="filter-btn" data-filter="Royal luxury">Royal luxury</button>
+                    <button class="filter-btn" data-filter="Royal shine">Royal shine</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-container">
+
+            <!-- Enamel -->
+            <div class="card" data-type="enamel">
+                <img src="enamel.jpg" alt="Enamel Paint">
+                <span>Gloss Enamel - 1/2 lt</span>
+                <span class="price">Price : 100</span>
+                <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
+                    to Cart</button>
+            </div>
+
+            <div class="card" data-type="enamel">
+                <img src="enamel.jpg" alt="Enamel Paint">
+                <span>Gloss Enamel - 1 lt</span>
+                <span class="price">Price : 200</span>
+                <button class="add-to-cart-btn" data-item="Gloss Enamel - 1 lt" data-price="200" data-quantity="1">Add
+                    to Cart</button>
+
+            </div>
+
+            <div class="card" data-type="enamel">
+                <img src="enamel.jpg" alt="Enamel Paint">
+                <span>Gloss Enamel - 4 lt</span>
+                <span class="price">Price : 500</span>
+                <button class="add-to-cart-btn" data-item="Gloss Enamel - 4 lt" data-price="500" data-quantity="1">Add
+                    to Cart</button>
+
+            </div>
+
+            <!-- Tractor Emulsion -->
+
+            <div class="card" data-type="Tractor">
+                <img src="tractor.jpg" alt="Tractor Paint">
+                <span>Tractor Emulsion - 1 lt</span>
+                <span class="price">Price : 700</span>
+                <button class="add-to-cart-btn" data-item="Tractor - 1 lt" data-price="700" data-quantity="1">Add to
+                    Cart</button>
+
+            </div>
+
+            <div class="card" data-type="Tractor">
+                <img src="tractor.jpg" alt="Tractor Paint">
+                <span>Tractor Emulsion - 4 lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Tractor">
+                <img src="tractor.jpg" alt="Tractor Paint">
+                <span>Tractor Emulsion - 10 lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Tractor">
+                <img src="tractor.jpg" alt="Tractor Paint">
+                <span>Tractor Emulsion - 20 lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
+            </div>
+
+            <!-- Ace Exterior Emulsion -->
+
+            <div class="card" data-type="Ace">
+                <img src="ace.jpg" alt="Ace Paint">
+                <span>Ace - 1 lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Ace">
+                <img src="ace.jpg" alt="Ace Paint">
+                <span>Ace - 4 lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Ace">
+                <img src="ace.jpg" alt="Ace Paint">
+                <span>Ace - 10 lt</span>
+                <span>Price : </span>
+                <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Ace">
+                <img src="ace.jpg" alt="Ace Paint">
+                <span>Ace - 20 lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
+            </div>
+
+            <!-- Apex  -->
+
+
+            <div class="card" data-type="Apex">
+                <img src="apex.jpg" alt="Apex Paint">
+                <span>Apex - 1 lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Apex">
+                <img src="apex.jpg" alt="Apex Paint">
+                <span>Apex - 4lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Apex">
+                <img src="apex.jpg" alt="Apex Paint">
+                <span>Apex - 10 lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Apex">
+                <img src="apex.jpg" alt="Apex Paint">
+                <span>Apex - 20lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
+            </div>
+
+            <!-- Premium -->
+
+            <div class="card" data-type="Premium">
+                <img src="Premium.jpg" alt="Premium">
+                <span>Premium - 1lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Premium">
+                <img src="Premium4.jpg" alt="Premium">
+                <span>Premium - 4lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Premium">
+                <img src="Premium4.jpg" alt="Premium">
+                <span>Premium - 10lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Premium">
+                <img src="Premium4.jpg" alt="Premium">
+                <span>Premium - 20lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
+            </div>
+
+
+            <!-- Apex Ultima -->
+
+            <div class="card" data-type="Apex Ultima">
+                <img src="ultima.jpg" alt="Apex Ultima Paint">
+                <span>Apex Ultima - 1lt</span>
+                <span class="price">Price : 1200</span>
+                <button class="add-to-cart-btn" data-item="Apex Ultima - 1lt" data-price="1200" data-quantity="1">Add to
+                    Cart</button>
+            </div>
+
+
+            <div class="card" data-type="Apex Ultima">
+                <img src="ultima.jpg" alt="Apex Ultima Paint">
+                <span>Apex Ultima - 4lt</span>
+                <span class="price">Price : 1800</span>
+                <button class="add-to-cart-btn" data-item="Apex Ultima - 4lt" data-price="1800" data-quantity="1">Add to
+                    Cart</button>
+            </div>
+
+
+            <div class="card" data-type="Apex Ultima">
+                <img src="ultima.jpg" alt="Apex Ultima Paint">
+                <span>Apex Ultima - 10lt</span>
+                <span> class="price"Price : 2700</span>
+                <span>Price : 2700</span>
+                <button class="add-to-cart-btn" data-item="Apex Ultima - 10lt" data-price="2700" data-quantity="1">Add
+                    to Cart</button>
+            </div>
+
+
+            <div class="card" data-type="Apex Ultima">
+                <img src="ultima.jpg" alt="Apex Ultima Paint">
+                <span>Apex Ultima - 20lt</span>
+                <span class="price">Price : 3800</span>
+                <button class="add-to-cart-btn" data-item="Apex Ultima - 20lt" data-price="3800" data-quantity="1">Add
+                    to Cart</button>
+            </div>
+
+
+            <!-- Roayal Luxury  -->
+
+            <div class="card" data-type="Royal luxury">
+                <img src="royal.jpg" alt="Royal Paint">
+                <span>Royal luxury - 1lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Royal luxury">
+                <img src="royal.jpg" alt="Royal Paint">
+                <span>Royal luxury - 4lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Royal luxury">
+                <img src="royal.jpg" alt="Royal Paint">
+                <span>Royal luxury - 10lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Royal luxury">
+                <img src="royal.jpg" alt="Royal Paint">
+                <span>Royal luxury - 20lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
+            </div>
+
+            <!-- Royal shine -->
+
+            <div class="card" data-type="Royal shine">
+                <img src="royal_shine.jpg" alt="Royal Shine Paint">
+                <span>Royal shine - 1lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Royal shine">
+                <img src="royal_shine.jpg" alt="Royal Shine Paint">
+                <span>Royal shine - 4lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Royal shine">
+                <img src="royal_shine.jpg" alt="Royal Shine Paint">
+                <span>Royal shine - 10lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Royal shine">
+                <img src="royal_shine.jpg" alt="Royal Shine Paint">
+                <span>Royal shine - 20lt</span>
+                <span class="price">Price : </span>
+                <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
+            </div>
+
+            <!-- brush  -->
+
+            <div class="card" data-type="Brush">
+                <img src="Paintbrush.jpg" alt="Brush">
+                <span>Brush 1/2" </span>
+                <span class="price">Price : 15</span>
+                <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Brush">
+                <img src="Paintbrush.jpg" alt="Brush">
+                <span>Brush 1" </span>
+                <span class="price">Price : 25</span>
+                <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Brush">
+                <img src="Paintbrush.jpg" alt="Brush">
+                <span>Brush 2" </span>
+                <span class="price">Price : 40</span>
+                <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Brush">
+                <img src="Paintbrush.jpg" alt="Brush">
+                <span>Brush 3" </span>
+                <span class="price">Price : 50</span>
+                <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Brush">
+                <img src="Paintbrush.jpg" alt="Brush">
+                <span>Brush 4" </span>
+                <span class="price">Price : 120</span>
+                <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="Brush">
+                <img src="Paintbrush.jpg" alt="Brush">
+                <span>Brush 5" </span>
+                <span class="price">Price : 130</span>
+                <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
+            </div>
+
+            <!-- roller -->
+
+            <div class="card" data-type="roller">
+                <img src="roller.jpg" alt="Brush">
+                <span>Roller 8" </span>
+                <span class="price">Price : 130</span>
+                <button class="add-to-cart-btn" data-item="roller">Add to Cart</button>
+            </div>
+
+            <div class="card" data-type="roller">
+                <img src="roller.jpg" alt="Brush">
+                <span>Roller 4" </span>
+                <span class="price">Price : 70 </span>
+                <button class="add-to-cart-btn" data-item="roller">Add to Cart</button>
+            </div>
+
+
+        </div>
+    </section>
+
+    <div class="pagination">
+        <a href="#" class="page-link" data-page="1">1</a>
+        <a href="#" class="page-link" data-page="2">2</a>
+        <a href="#" class="page-link" data-page="3">3</a>
+        <!-- Add more page links as needed -->
+    </div>
+
+
+    <footer class="footer">
+        <p>&copy; 2023 Sri Matha Traders. All Rights Reserved.</p>
+    </footer>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const itemsPerPage = 12;
+            const cards = document.querySelectorAll('.card');
+            const paginationLinks = document.querySelectorAll('.page-link');
+
+            function showPage(pageNumber) {
+                const start = (pageNumber - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                cards.forEach((card, index) => {
+                    if (index >= start && index < end) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                paginationLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                document.querySelector(`.page-link[data-page="${pageNumber}"]`).classList.add('active');
+            }
+
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const pageNumber = parseInt(this.dataset.page);
+                    showPage(pageNumber);
+                });
+            });
+
+            // Initialize the first page
+            showPage(1);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const itemsPerPage = 12;
+            const cards = document.querySelectorAll('.card');
+            const paginationLinks = document.querySelectorAll('.page-link');
+
+            function showPage(pageNumber) {
+                const start = (pageNumber - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                cards.forEach((card, index) => {
+                    if (index >= start && index < end) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                paginationLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                document.querySelector(`.page-link[data-page="${pageNumber}"]`).classList.add('active');
+            }
+
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const pageNumber = parseInt(this.dataset.page);
+                    showPage(pageNumber);
+                });
+            });
+
+            // Initialize the first page
+            showPage(1);
+        });
+        // JavaScript to update the paint title based on the selected filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const paintTitle = document.getElementById('paint-title');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filterType = button.getAttribute('data-filter');
+                paintTitle.textContent = filterType === 'all' ? 'Paints' : filterType;
+            });
+        });
+
+        // JavaScript for Filter Functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                document.querySelectorAll('.card').forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-type') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // JavaScript for Cart Functionality
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function addToCart(item, price, quantity = 1) {
+            const existingItem = cart.find(cartItem => cartItem.item === item);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({ item, price, quantity });
+            }
+            updateCartCount();
+            saveCart();
+        }
+
+        function removeFromCart(item) {
+            const index = cart.findIndex(cartItem => cartItem.item === item);
+            if (index > -1) {
+                cart.splice(index, 1);
+                updateCartCount();
+                saveCart();
+            }
+        }
+
+        function updateQuantity(item, quantity) {
+            const cartItem = cart.find(cartItem => cartItem.item === item);
+            if (cartItem) {
+                cartItem.quantity = quantity;
+                saveCart();
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            const cartLink = document.getElementById('cart-link');
+            cartLink.textContent = `Cart (${cart.length})`;
+        }
+
+        function renderCheckoutPage() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+
+            let total = 0;
+
+            cart.forEach(cartItem => {
+                const itemTotal = cartItem.price * cartItem.quantity;
+                total += itemTotal;
+
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+            <img src="/assets/${cartItem.item.toLowerCase().replace(/ /g, '-')}.jpg" alt="${cartItem.item}">
+            <span>${cartItem.item}</span>
+            <span>Price: ₹${cartItem.price}</span>
+            <input type="number" value="${cartItem.quantity}" min="1" class="quantity-input" data-item="${cartItem.item}">
+            <button class="remove-btn" data-item="${cartItem.item}">Remove</button>
+            <span>Total: ₹${itemTotal}</span>
+        `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            const totalElement = document.createElement('div');
+            totalElement.className = 'total';
+            totalElement.innerHTML = `Total: ₹${total}`;
+            cartItemsContainer.appendChild(totalElement);
+        }
+
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.getAttribute('data-item');
+                const price = parseInt(button.getAttribute('data-price'));
+                addToCart(item, price);
+            });
+        });
+
+        document.addEventListener('click', event => {
+            if (event.target.classList.contains('remove-btn')) {
+                const item = event.target.getAttribute('data-item');
+                removeFromCart(item);
+                renderCheckoutPage();
+            }
+        });
+
+        document.addEventListener('change', event => {
+            if (event.target.classList.contains('quantity-input')) {
+                const item = event.target.getAttribute('data-item');
+                const quantity = parseInt(event.target.value);
+                updateQuantity(item, quantity);
+                renderCheckoutPage();
+            }
+        });
+
+        // Call this function on page load for the checkout page
+        if (window.location.pathname.includes('/checkout')) {
+            renderCheckoutPage();
+        }
+
+        // Initialize the cart count on page load
+        updateCartCount();
+
+    </script>
+
+</body>
+
+</html>
