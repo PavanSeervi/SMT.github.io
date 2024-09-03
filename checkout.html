@@ -5,154 +5,241 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Sri Matha Traders</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: fangsong, sans-serif;
+        /* Reset some basic styles */
+        body,
+        h1,
+        h2,
+        p {
             margin: 0;
             padding: 0;
+            font-family: 'Arial', sans-serif;
         }
 
-        .header,
-        .footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            width: 100%;
+        /* Body styling */
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-        }
-
-        .logo {
-            height: 100px;
-            width: 100px;
-            border-radius: 50%;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            background-color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
-        .nav-link {
-            color: black;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 20px;
-            padding: 8px 15px;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 3px;
-        }
-
-        .nav-link:hover {
-            background-color: #ff6f61;
-            color: #fff;
-        }
-
+        /* Checkout Container */
         .checkout-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
             padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading Styles */
+        .checkout-container h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* Cart Items Container */
+        .cart-items-container {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            margin-bottom: 20px;
         }
 
         .cart-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 10px 0;
             border-bottom: 1px solid #ddd;
         }
 
-        .cart-item img {
-            width: 100px;
-            height: auto;
-            margin-right: 20px;
+        .cart-item p {
+            margin: 0;
+            font-size: 1.1em;
+            color: #333;
         }
 
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-quantity {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .cart-item-quantity input {
-            width: 50px;
-            text-align: center;
-        }
-
-        .remove-btn {
-            background-color: #ff6f61;
-            color: white;
+        .cart-item .delete-btn {
+            background: none;
             border: none;
-            padding: 5px 10px;
+            font-size: 1.5em;
+            color: #f00;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .cart-item .delete-btn:hover {
+            color: #c00;
+        }
+
+        /* Total Amount Container */
+        .total-container {
+            text-align: right;
+            padding: 10px;
+            margin-top: 20px;
+            background: #f7f7f7;
+            border-radius: 5px;
+            font-size: 1.5em;
+            color: #111;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            text-align: center;
+            color: #fff;
+            background: #007bff;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s ease;
         }
 
-        .remove-btn:hover {
-            background-color: #e55b4e;
+        .btn-primary:hover {
+            background: #0056b3;
         }
 
-        .total {
-            font-weight: bold;
-            font-size: 18px;
-            margin-top: 20px;
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .checkout-container {
+                padding: 15px;
+            }
+
+            .checkout-container h1 {
+                font-size: 1.8em;
+            }
+
+            .cart-item {
+                flex-direction: column;
+            }
+
+            .total-container {
+                font-size: 1.3em;
+            }
+
+            .btn {
+                font-size: 1.1em;
+                padding: 12px;
+            }
         }
 
-        #checkout-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 16px;
+        @media (max-width: 480px) {
+            .checkout-container {
+                padding: 10px;
+            }
+
+            .checkout-container h1 {
+                font-size: 1.5em;
+            }
+
+            .total-container {
+                font-size: 1.2em;
+            }
+
+            .btn {
+                font-size: 1em;
+                padding: 10px;
+            }
         }
 
-        #checkout-btn:hover {
-            background-color: #0056b3;
+        @media (min-width: 1024px) {
+            .checkout-container {
+                width: 80%;
+            }
         }
     </style>
 </head>
 
 <body>
-    <header class="header">
-        <img src="logo.png" alt="Sri Matha Traders Logo" class="logo">
-        <nav>
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="checkout" class="nav-link">Cart</a>
-        </nav>
-    </header>
-
-    <section class="checkout-container">
-        <h2>Your Cart</h2>
-        <div id="cart-items">
-            <!-- Cart items will be injected here by JavaScript -->
+    <div class="checkout-container">
+        <h1>Checkout</h1>
+        <div id="cart-items" class="cart-items-container">
+            <!-- Cart items will be rendered here by JavaScript -->
         </div>
-        <div class="total">
-            Total: <span id="total-price">0</span>
+        <div class="total-container">
+            <h2>Total Amount: ₹<span id="total-value">0.00</span></h2>
         </div>
-        <button id="checkout-btn">Checkout</button>
-    </section>
-
-    <footer class="footer">
-        <p>&copy; 2023 Sri Matha Traders. All Rights Reserved.</p>
-    </footer>
+        <button id="place-order-btn" class="btn btn-primary">Place Order</button>
+    </div>
 
     <script>
+        // Function to render cart items and calculate total amount
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalValueElement = document.getElementById('total-value');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];  // Fetch the cart from localStorage
+            let totalAmount = 0;
 
+            // Clear the cart container
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    // Create item element
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    itemElement.innerHTML = `
+                        <p>${index + 1}.</p>
+                        <p>${item.name}</p>
+                        <p>Quantity: ${item.quantity}</p>
+                        <p>Price: ₹${item.price}</p>
+                        <p>Total: ₹${item.price * item.quantity}</p>
+                        <button class="delete-btn" data-index="${index}">&#10005;</button>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+
+                    // Calculate total amount
+                    totalAmount += item.price * item.quantity;
+                });
+
+                // Update total amount in the DOM
+                totalValueElement.textContent = totalAmount.toFixed(2);
+            }
+        }
+
+        // Function to handle item removal
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);  // Remove item at the specified index
+            localStorage.setItem('cart', JSON.stringify(cart));  // Save updated cart to localStorage
+            renderCart();  // Re-render cart and update total amount
+        }
+
+        // Call renderCart when the page loads
+        window.addEventListener('DOMContentLoaded', function () {
+            renderCart();
+
+            // Handle delete button clicks
+            document.getElementById('cart-items').addEventListener('click', function (event) {
+                if (event.target.classList.contains('delete-btn')) {
+                    const index = event.target.getAttribute('data-index');
+                    removeItem(index);
+                }
+            });
+
+            // Handle place order button
+            document.getElementById('place-order-btn').addEventListener('click', () => {
+                if (JSON.parse(localStorage.getItem('cart')).length === 0) {
+                    alert('Your cart is empty!');
+                } else {
+                    alert('Order placed successfully!');
+                    localStorage.removeItem('cart');
+                    renderCart();
+                }
+            });
+        });
     </script>
+
 </body>
 
 </html>

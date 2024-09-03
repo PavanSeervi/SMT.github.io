@@ -5,7 +5,7 @@ body {
 }
 
 .header {
-    padding: 10px 10px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -15,7 +15,6 @@ body {
 .header .logo {
     height: 100px;
     width: 100px;
-    vertical-align: middle;
     border-radius: 50px;
 }
 
@@ -25,8 +24,6 @@ body {
     flex-grow: 1;
     text-align: center;
     color: black;
-    font-style: normal;
-    font-family: 'Fangsong', sans-serif;
 }
 
 .header nav {
@@ -57,27 +54,30 @@ body {
     color: #fff;
 }
 
-.welcome-section {
+.welcome-section,
+.about-section,
+.contact-section {
     background-color: #fff0bf;
     border-bottom: 1px solid #ddd;
     text-align: center;
     padding: 120px 30px;
 }
 
-.welcome-section h2 {
+.welcome-section h2,
+.about-section .section-title,
+.contact-section h3 {
     color: #333;
-    font-size: 36px;
-    /* Increased size for better prominence */
     font-family: 'Georgia', serif;
-    /* Stylish serif font for headings */
+    font-size: 36px;
     font-weight: bold;
-    /* Bold text for emphasis */
     margin-bottom: 20px;
     position: relative;
     padding-bottom: 10px;
 }
 
-.welcome-section h2::after {
+.welcome-section h2::after,
+.about-section .section-title::after,
+.contact-section h3::after {
     content: '';
     display: block;
     width: 50px;
@@ -86,22 +86,18 @@ body {
     margin: 10px auto 0;
 }
 
-.welcome-section p {
+.welcome-section p,
+.contact-section p {
     color: #666;
     font-size: 20px;
-    font-weight: 400;
-    /* Regular weight for readability */
     text-align: center;
     margin: 20px 0;
     line-height: 1.8;
-    /* Slightly increased line height for readability */
     letter-spacing: 0.5px;
     max-width: 700px;
-    /* Wider max-width for better text flow */
     margin-left: auto;
     margin-right: auto;
     font-family: 'Open Sans', sans-serif;
-    /* Clean sans-serif font for body text */
 }
 
 #explore-btn {
@@ -114,59 +110,65 @@ body {
     font-size: 18px;
 }
 
+#explore-btn {
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+/* Smooth animation for buttons */
+.animated {
+    transition: transform 0.3s, background-color 0.3s;
+    transform: scale(1.05);
+    /* Slightly enlarges the button on hover */
+}
+
+
 #explore-btn:hover {
     background-color: #ff4b3a;
 }
 
-.categories-section {
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #ddd;
-    padding: 20px;
-    position: relative;
-}
 
 .categories-section h3 {
     color: #333;
-    font-size: 24px;
+    font-family: 'Georgia', serif;
+    /* Match font-family */
+    font-size: 36px;
+    /* Match font-size */
+    font-weight: bold;
     margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+    text-align: center;
+    /* Center the text */
 }
+
+.categories-section h3::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: #ff6f61;
+    margin: 10px auto 0;
+}
+
 
 .slider-container {
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .categories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    transition: transform 0.3s ease;
-}
-
-.arrow-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 10;
-}
-
-.left-arrow {
-    left: 10px;
-}
-
-.right-arrow {
-    right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    transition: transform 0.5s ease;
+    width: 100%;
+    justify-content: center;
 }
 
 .category-item {
+    flex: 0 0 auto;
+    width: 220px;
+    box-sizing: border-box;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -174,6 +176,7 @@ body {
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
+    margin: 15px;
 }
 
 .category-item img {
@@ -183,127 +186,38 @@ body {
     transition: transform 0.3s;
 }
 
-/* About Us Section */
-.about-section {
-    background-color: #fff0bf;
-    border-bottom: 1px solid #ddd;
-    padding: 40px;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.section-title {
-    font-family: 'Georgia', serif;
-    font-size: 36px;
-    /* Larger font size for emphasis */
-    color: #333;
-    margin-bottom: 20px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: #ff6f61;
-    margin: 10px auto 0;
-}
-
-.company-name {
+.about-section .company-name {
     font-family: 'Roboto', sans-serif;
     font-size: 36px;
     color: #ff6f61;
     margin-bottom: 20px;
     text-transform: uppercase;
-    /* Make the company name stand out */
     letter-spacing: 2px;
-    /* Add spacing between letters */
 }
 
 .about-text {
     font-family: 'Lora', serif;
-    /* Elegant serif font */
     font-size: 18px;
     color: #444;
-    /* Darker color for better readability */
     line-height: 1.8;
     margin: 0 auto;
     max-width: 800px;
     text-align: justify;
-    /* Justify text for a clean look */
-    padding: 0 20px;
-    /* Add padding for better text flow on small screens */
-    position: relative;
+    padding: 20px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
     border-radius: 10px;
-    /* Rounded corners */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow for depth */
-    padding: 20px;
-    margin-bottom: 20px;
-    /* Space between paragraphs */
 }
 
-/* Text effect */
 .about-text b {
     font-family: 'Roboto Condensed', sans-serif;
-    /* Condensed font for emphasis */
     color: #ff6f61;
-    /* Accent color for bold text */
-}
-
-/* Optional: Add a subtle shadow to enhance readability */
-.about-text::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    /* Light overlay */
-    z-index: -1;
-    filter: blur(2px);
-    /* Subtle blur effect */
-}
-
-
-/* Contact Section */
-.contact-section {
-    background-color: #fff0bf;
-    /* Same background color as the welcome section */
-    border-bottom: 1px solid #ddd;
-    /* Border to match the welcome section */
-    text-align: center;
-    padding: 120px 30px;
-}
-
-.contact-section h3 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: 500;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.contact-section h3::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 3px;
-    background-color: #ff6f61;
-    /* Accent color */
-    margin: 10px auto 0;
 }
 
 .contact-section p {
     color: #555;
     font-size: 18px;
     font-weight: 500;
-    text-align: center;
     margin: 20px 0;
     line-height: 1.6;
     letter-spacing: 0.5px;
@@ -312,11 +226,9 @@ body {
     margin-right: auto;
 }
 
-/* Remove line below paragraph */
 .contact-section p::after {
     display: none;
 }
-
 
 .category-item span {
     display: block;
@@ -325,7 +237,6 @@ body {
     color: #333;
 }
 
-/* Button styling */
 .category-item .btn {
     display: inline-block;
     background-color: #ff6f61;
@@ -345,7 +256,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Hover Effect */
 .category-item:hover {
     transform: scale(1.02);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
@@ -355,32 +265,14 @@ body {
     transform: scale(1.1);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-    .header h1 {
-        font-size: 20px;
+    .category-item {
+        width: calc(50% - 20px);
+        margin: 10px;
     }
 
-    .nav-link {
-        margin: 0 10px;
-        font-size: 14px;
-    }
-
-    #explore-btn {
-        padding: 8px 15px;
-        font-size: 14px;
-    }
-
-    .categories-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-
-    .category-item img {
-        max-height: 120px;
-    }
-
-    .contact-section p {
-        font-size: 16px;
+    .arrow-btn {
+        padding: 10px;
     }
 }
 
@@ -405,53 +297,23 @@ body {
         font-size: 16px;
     }
 
-    /* Adjust the slider for small screens */
-    .slider-container {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    .categories-grid {
-        display: flex;
-        transition: transform 0.3s ease-in-out;
-    }
-
     .category-item {
-        min-width: 100%;
-        box-sizing: border-box;
-        padding: 10px;
-        text-align: center;
+        width: calc(100% - 20px);
+        margin: 10px;
     }
 
     .arrow-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
         padding: 10px;
-        cursor: pointer;
-        z-index: 10;
-    }
-
-    .left-arrow {
-        left: 10px;
-    }
-
-    .right-arrow {
-        right: 10px;
     }
 }
 
-footer {
+
+.footer {
     text-align: center;
     padding: 5px;
     background-color: #abbaba;
     color: #000;
 }
-
 
 .cart {
     position: fixed;

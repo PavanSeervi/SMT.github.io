@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paints - Sri Matha Traders</title>
-    <link rel="stylesheet" href="/views/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: fangsong, sans-serif;
@@ -14,33 +14,29 @@
         }
 
         .header {
-            padding: 10px 10px;
+            padding: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: relative;
+            background-color: #ffffff;
         }
 
         .logo {
-            height: 100px;
-            width: 100px;
-            vertical-align: middle;
+            height: 60px;
+            width: 60px;
             border-radius: 50%;
         }
 
         nav {
             display: flex;
             align-items: center;
-            background-color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
+            gap: 10px;
         }
 
         .nav-link {
             color: black;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 20px;
+            font-size: 18px;
             padding: 8px 15px;
             transition: background-color 0.3s, color 0.3s;
             border-radius: 3px;
@@ -56,7 +52,6 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
-            /* Position relative to enable absolute positioning of filter options */
         }
 
         .category-detail-section::before {
@@ -73,51 +68,41 @@
             z-index: -1;
         }
 
-        .category-detail-section>* {
-            position: relative;
-            z-index: 1;
-        }
-
         /* Filter Dropdown Styles */
 
         .filter-options {
-            position: absolute;
-            /* Position absolutely to overlap the card container */
-            top: 20px;
-            /* Adjust top position as needed */
-            right: 20px;
-            /* Align to the right of the container */
-            width: auto;
-            /* Adjust width to fit the content */
-            padding: 10px;
-            z-index: 2;
-            /* Ensure it is above the card container */
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
         }
 
         .filter-dropdown {
             position: relative;
             display: inline-block;
-            /* Remove width property to fit content */
         }
 
         .filter-btn-main {
             padding: 6px 30px;
-            /* Smaller padding for a smaller button */
             background-color: #ff6f61;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            /* Removed transform */
             font-size: 14px;
-            /* Smaller font size for a smaller button */
-            text-align: center;
+        }
+
+        .grid-toggle-btn {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 10px;
+            margin-left: 10px;
+            cursor: pointer;
         }
 
         .filter-btn-main:hover {
             background-color: #e55b4e;
-            /* Removed transform to stop zooming effect */
         }
 
         .filter-list {
@@ -130,7 +115,6 @@
             margin-top: 5px;
             padding: 10px;
             width: 100%;
-            /* Adjust the width as needed */
         }
 
         .filter-dropdown:hover .filter-list,
@@ -164,44 +148,21 @@
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 20px;
             padding: 20px;
-            margin-top: 100px;
-            /* Adjust to ensure it's not covered by filter options */
-        }
-
-
-        .card .price {
-            display: block;
-            margin: 10px 0;
-            font-weight: bold;
-            color: #e55b4e;
-            /* Change color to something that stands out */
-            font-size: 18px;
-            /* Increase font size for better visibility */
-            background-color: #f8f8f8;
-            /* Add a background color */
-            padding: 8px 12px;
-            /* Add some padding for better appearance */
-            border-radius: 5px;
-            /* Rounded corners */
-            border: 1px solid #ddd;
-            /* Add a border */
         }
 
         .card {
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
             text-align: center;
+            overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .card img {
             width: 100%;
-            height: auto;
             max-height: 150px;
             object-fit: contain;
-            transition: transform 0.3s;
         }
 
         .card span {
@@ -211,18 +172,27 @@
             color: #333;
         }
 
+        .card .price {
+            display: block;
+            margin: 10px 41px;
+            font-weight: bold;
+            color: #000000;
+            font-size: 18px;
+            background-color: #cecece;
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+        }
+
         .card .add-to-cart-btn {
-            display: inline-block;
             background-color: #ff6f61;
             color: white;
             padding: 10px 20px;
-            border: none;
             border-radius: 5px;
             text-decoration: none;
             font-size: 16px;
             margin: 10px 0;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
         }
 
         .card .add-to-cart-btn:hover {
@@ -237,16 +207,13 @@
         .cart {
             position: fixed;
             top: 120px;
-            /* Adjust to position it below the header */
             left: 20px;
-            /* Distance from the left edge */
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             z-index: 1000;
-            /* Ensure it is above other elements */
         }
 
         .cart.hidden {
@@ -301,6 +268,66 @@
             color: white;
             border-color: #ff6f61;
         }
+
+        /* Search Bar Container */
+        .search-bar-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        /* Search Input Field */
+        .search-input {
+            width: 200px;
+            /* Adjust width as needed */
+            padding: 10px;
+            font-size: 14px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            outline: none;
+            background-color: #f9f9f9;
+        }
+
+        /* Search Button */
+        .search-button {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #e55b4e;
+            transform: scale(1.05);
+        }
+
+        .search-button:focus {
+            outline: none;
+        }
+
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .card-container {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
     </style>
 </head>
 
@@ -310,16 +337,22 @@
         <nav>
             <a href="index.html" class="nav-link">Home</a>
             <a href="electrical.html" class="nav-link">Electrical</a>
-            <a href="checkout.html" class="nav-link" id="cart-link">Cart</a>
+            <a href="checkout.html" class="nav-link">Checkout</a>
+            <a href="paints.html" class="nav-link">Paints</a>
         </nav>
     </header>
+
+    <section class="search-bar-section">
+        <input type="text" id="search-bar" placeholder="Search as product..." class="search-input" />
+        <button id="search-btn" class="search-button">Search</button>
+    </section>
+
 
     <section class="category-detail-section">
         <br><br>
 
         <h2 id="paint-title">Paints</h2>
         <p>Discover our wide range of quality paints, perfect for any surface.</p>
-
 
         <div class="filter-options">
             <div class="filter-dropdown">
@@ -341,63 +374,93 @@
         </div>
 
         <div class="card-container">
-
             <!-- Enamel -->
+
             <div class="card" data-type="enamel">
                 <img src="enamel.jpg" alt="Enamel Paint">
-                <span>Gloss Enamel - 1/2 lt</span>
-                <span class="price">Price : 100</span>
+                <span>White - 1 lt</span>
+                <span class="price">Price : ₹320</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
                     to Cart</button>
             </div>
 
             <div class="card" data-type="enamel">
                 <img src="enamel.jpg" alt="Enamel Paint">
-                <span>Gloss Enamel - 1 lt</span>
-                <span class="price">Price : 200</span>
-                <button class="add-to-cart-btn" data-item="Gloss Enamel - 1 lt" data-price="200" data-quantity="1">Add
+                <span>Yellow - 1 lt</span>
+                <span class="price">Price : ₹320</span>
+                <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
                     to Cart</button>
-
             </div>
 
             <div class="card" data-type="enamel">
                 <img src="enamel.jpg" alt="Enamel Paint">
+                <span>Black - 1 lt</span>
+                <span class="price">Price : ₹300</span>
+                <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
+                    to Cart</button>
+            </div>
+
+
+            <div class="card" data-type="enamel">
+                <img src="enamel.jpg" alt="Enamel Paint">
+                <span>White - 1/2 lt</span>
+                <span class="price">Price : ₹220</span>
+                <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
+                    to Cart</button>
+            </div>
+
+            <div class="card" data-type="enamel">
+                <img src="enamel.jpg" alt="Enamel Paint">
+                <span>Yellow - 1/2 lt</span>
+                <span class="price">Price : ₹220</span>
+                <button class="add-to-cart-btn" data-item="Gloss Enamel - 1 lt" data-price="200" data-quantity="1">Add
+                    to Cart</button>
+            </div>
+
+            <div class="card" data-type="enamel">
+                <img src="enamel.jpg" alt="Enamel Paint">
+                <span>Black - 1/2 lt</span>
+                <span class="price">Price : ₹200</span>
+                <button class="add-to-cart-btn" data-item="Gloss Enamel - 1 lt" data-price="200" data-quantity="1">Add
+                    to Cart</button>
+            </div>
+
+
+            <div class="card" data-type="enamel">
+                <img src="enamel.jpg" alt="Enamel Paint">
                 <span>Gloss Enamel - 4 lt</span>
-                <span class="price">Price : 500</span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 4 lt" data-price="500" data-quantity="1">Add
                     to Cart</button>
-
             </div>
 
             <!-- Tractor Emulsion -->
-
             <div class="card" data-type="Tractor">
                 <img src="tractor.jpg" alt="Tractor Paint">
                 <span>Tractor Emulsion - 1 lt</span>
-                <span class="price">Price : 700</span>
+                <span class="price">Price : ₹700</span>
                 <button class="add-to-cart-btn" data-item="Tractor - 1 lt" data-price="700" data-quantity="1">Add to
                     Cart</button>
-
             </div>
 
             <div class="card" data-type="Tractor">
                 <img src="tractor.jpg" alt="Tractor Paint">
                 <span>Tractor Emulsion - 4 lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Tractor">
                 <img src="tractor.jpg" alt="Tractor Paint">
                 <span>Tractor Emulsion - 10 lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Tractor">
                 <img src="tractor.jpg" alt="Tractor Paint">
                 <span>Tractor Emulsion - 20 lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
             </div>
 
@@ -406,28 +469,28 @@
             <div class="card" data-type="Ace">
                 <img src="ace.jpg" alt="Ace Paint">
                 <span>Ace - 1 lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Ace">
                 <img src="ace.jpg" alt="Ace Paint">
                 <span>Ace - 4 lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Ace">
                 <img src="ace.jpg" alt="Ace Paint">
                 <span>Ace - 10 lt</span>
-                <span>Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Ace">
                 <img src="ace.jpg" alt="Ace Paint">
                 <span>Ace - 20 lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
             </div>
 
@@ -437,28 +500,28 @@
             <div class="card" data-type="Apex">
                 <img src="apex.jpg" alt="Apex Paint">
                 <span>Apex - 1 lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Apex">
                 <img src="apex.jpg" alt="Apex Paint">
                 <span>Apex - 4lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Apex">
                 <img src="apex.jpg" alt="Apex Paint">
                 <span>Apex - 10 lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Apex">
                 <img src="apex.jpg" alt="Apex Paint">
                 <span>Apex - 20lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
             </div>
 
@@ -467,28 +530,28 @@
             <div class="card" data-type="Premium">
                 <img src="Premium.jpg" alt="Premium">
                 <span>Premium - 1lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Premium">
                 <img src="Premium4.jpg" alt="Premium">
                 <span>Premium - 4lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Premium">
                 <img src="Premium4.jpg" alt="Premium">
                 <span>Premium - 10lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Premium">
                 <img src="Premium4.jpg" alt="Premium">
                 <span>Premium - 20lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
             </div>
 
@@ -498,7 +561,7 @@
             <div class="card" data-type="Apex Ultima">
                 <img src="ultima.jpg" alt="Apex Ultima Paint">
                 <span>Apex Ultima - 1lt</span>
-                <span class="price">Price : 1200</span>
+                <span class="price">Price : ₹1200</span>
                 <button class="add-to-cart-btn" data-item="Apex Ultima - 1lt" data-price="1200" data-quantity="1">Add to
                     Cart</button>
             </div>
@@ -507,7 +570,7 @@
             <div class="card" data-type="Apex Ultima">
                 <img src="ultima.jpg" alt="Apex Ultima Paint">
                 <span>Apex Ultima - 4lt</span>
-                <span class="price">Price : 1800</span>
+                <span class="price">Price : ₹1800</span>
                 <button class="add-to-cart-btn" data-item="Apex Ultima - 4lt" data-price="1800" data-quantity="1">Add to
                     Cart</button>
             </div>
@@ -516,8 +579,7 @@
             <div class="card" data-type="Apex Ultima">
                 <img src="ultima.jpg" alt="Apex Ultima Paint">
                 <span>Apex Ultima - 10lt</span>
-                <span> class="price"Price : 2700</span>
-                <span>Price : 2700</span>
+                <span class="price">Price : 2700</span>
                 <button class="add-to-cart-btn" data-item="Apex Ultima - 10lt" data-price="2700" data-quantity="1">Add
                     to Cart</button>
             </div>
@@ -526,7 +588,7 @@
             <div class="card" data-type="Apex Ultima">
                 <img src="ultima.jpg" alt="Apex Ultima Paint">
                 <span>Apex Ultima - 20lt</span>
-                <span class="price">Price : 3800</span>
+                <span class="price">Price : ₹3800</span>
                 <button class="add-to-cart-btn" data-item="Apex Ultima - 20lt" data-price="3800" data-quantity="1">Add
                     to Cart</button>
             </div>
@@ -537,28 +599,28 @@
             <div class="card" data-type="Royal luxury">
                 <img src="royal.jpg" alt="Royal Paint">
                 <span>Royal luxury - 1lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal luxury">
                 <img src="royal.jpg" alt="Royal Paint">
                 <span>Royal luxury - 4lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal luxury">
                 <img src="royal.jpg" alt="Royal Paint">
                 <span>Royal luxury - 10lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal luxury">
                 <img src="royal.jpg" alt="Royal Paint">
                 <span>Royal luxury - 20lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
             </div>
 
@@ -567,28 +629,28 @@
             <div class="card" data-type="Royal shine">
                 <img src="royal_shine.jpg" alt="Royal Shine Paint">
                 <span>Royal shine - 1lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal shine">
                 <img src="royal_shine.jpg" alt="Royal Shine Paint">
                 <span>Royal shine - 4lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal shine">
                 <img src="royal_shine.jpg" alt="Royal Shine Paint">
                 <span>Royal shine - 10lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal shine">
                 <img src="royal_shine.jpg" alt="Royal Shine Paint">
                 <span>Royal shine - 20lt</span>
-                <span class="price">Price : </span>
+                <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
             </div>
 
@@ -597,42 +659,42 @@
             <div class="card" data-type="Brush">
                 <img src="Paintbrush.jpg" alt="Brush">
                 <span>Brush 1/2" </span>
-                <span class="price">Price : 15</span>
+                <span class="price">Price : ₹15</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
                 <img src="Paintbrush.jpg" alt="Brush">
                 <span>Brush 1" </span>
-                <span class="price">Price : 25</span>
+                <span class="price">Price : ₹25</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
                 <img src="Paintbrush.jpg" alt="Brush">
                 <span>Brush 2" </span>
-                <span class="price">Price : 40</span>
+                <span class="price">Price : ₹40</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
                 <img src="Paintbrush.jpg" alt="Brush">
                 <span>Brush 3" </span>
-                <span class="price">Price : 50</span>
+                <span class="price">Price : ₹50</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
                 <img src="Paintbrush.jpg" alt="Brush">
                 <span>Brush 4" </span>
-                <span class="price">Price : 120</span>
+                <span class="price">Price : ₹120</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
                 <img src="Paintbrush.jpg" alt="Brush">
                 <span>Brush 5" </span>
-                <span class="price">Price : 130</span>
+                <span class="price">Price : ₹130</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
@@ -641,14 +703,14 @@
             <div class="card" data-type="roller">
                 <img src="roller.jpg" alt="Brush">
                 <span>Roller 8" </span>
-                <span class="price">Price : 130</span>
+                <span class="price">Price : ₹130</span>
                 <button class="add-to-cart-btn" data-item="roller">Add to Cart</button>
             </div>
 
             <div class="card" data-type="roller">
                 <img src="roller.jpg" alt="Brush">
                 <span>Roller 4" </span>
-                <span class="price">Price : 70 </span>
+                <span class="price">Price :₹70 </span>
                 <button class="add-to-cart-btn" data-item="roller">Add to Cart</button>
             </div>
 
@@ -671,205 +733,125 @@
 
 
     <script>
+        // JavaScript code for Paints - Sri Matha Traders
+
         document.addEventListener('DOMContentLoaded', function () {
-            const itemsPerPage = 12;
+            const searchBar = document.getElementById('search-bar');
             const cards = document.querySelectorAll('.card');
-            const paginationLinks = document.querySelectorAll('.page-link');
 
-            function showPage(pageNumber) {
-                const start = (pageNumber - 1) * itemsPerPage;
-                const end = start + itemsPerPage;
+            searchBar.addEventListener('input', function () {
+                const query = searchBar.value.toLowerCase();
 
-                cards.forEach((card, index) => {
-                    if (index >= start && index < end) {
-                        card.style.display = 'block';
+                cards.forEach(card => {
+                    const itemName = card.querySelector('span').textContent.toLowerCase();
+                    if (itemName.includes(query)) {
+                        card.style.display = '';
                     } else {
                         card.style.display = 'none';
                     }
                 });
-
-                paginationLinks.forEach(link => {
-                    link.classList.remove('active');
-                });
-
-                document.querySelector(`.page-link[data-page="${pageNumber}"]`).classList.add('active');
-            }
-
-            paginationLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const pageNumber = parseInt(this.dataset.page);
-                    showPage(pageNumber);
-                });
             });
-
-            // Initialize the first page
-            showPage(1);
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            const itemsPerPage = 12;
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
             const cards = document.querySelectorAll('.card');
-            const paginationLinks = document.querySelectorAll('.page-link');
 
-            function showPage(pageNumber) {
-                const start = (pageNumber - 1) * itemsPerPage;
-                const end = start + itemsPerPage;
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const filterValue = this.getAttribute('data-filter');
+                    filterCards(filterValue);
+                });
+            });
 
-                cards.forEach((card, index) => {
-                    if (index >= start && index < end) {
+            function filterCards(filterValue) {
+                cards.forEach(card => {
+                    const cardType = card.getAttribute('data-type');
+                    if (filterValue === 'all' || cardType === filterValue) {
                         card.style.display = 'block';
                     } else {
                         card.style.display = 'none';
                     }
                 });
-
-                paginationLinks.forEach(link => {
-                    link.classList.remove('active');
-                });
-
-                document.querySelector(`.page-link[data-page="${pageNumber}"]`).classList.add('active');
             }
 
-            paginationLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const pageNumber = parseInt(this.dataset.page);
-                    showPage(pageNumber);
-                });
-            });
 
-            // Initialize the first page
-            showPage(1);
-        });
-        // JavaScript to update the paint title based on the selected filter
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const paintTitle = document.getElementById('paint-title');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filterType = button.getAttribute('data-filter');
-                paintTitle.textContent = filterType === 'all' ? 'Paints' : filterType;
-            });
-        });
-
-        // JavaScript for Filter Functionality
-        document.querySelectorAll('.filter-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.getAttribute('data-filter');
-                document.querySelectorAll('.card').forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-type') === filter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // JavaScript for Cart Functionality
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function addToCart(item, price, quantity = 1) {
-            const existingItem = cart.find(cartItem => cartItem.item === item);
-            if (existingItem) {
-                existingItem.quantity += quantity;
-            } else {
-                cart.push({ item, price, quantity });
-            }
-            updateCartCount();
-            saveCart();
-        }
-
-        function removeFromCart(item) {
-            const index = cart.findIndex(cartItem => cartItem.item === item);
-            if (index > -1) {
-                cart.splice(index, 1);
-                updateCartCount();
-                saveCart();
-            }
-        }
-
-        function updateQuantity(item, quantity) {
-            const cartItem = cart.find(cartItem => cartItem.item === item);
-            if (cartItem) {
-                cartItem.quantity = quantity;
-                saveCart();
-            }
-        }
-
-        function saveCart() {
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-
-        function updateCartCount() {
+            // Add to cart functionality
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const cartLink = document.getElementById('cart-link');
-            cartLink.textContent = `Cart (${cart.length})`;
-        }
 
-        function renderCheckoutPage() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            cartItemsContainer.innerHTML = '';
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const name = this.getAttribute('data-item');
+                    const price = parseInt(this.getAttribute('data-price'));
+                    const quantity = parseInt(this.getAttribute('data-quantity'));
 
-            let total = 0;
-
-            cart.forEach(cartItem => {
-                const itemTotal = cartItem.price * cartItem.quantity;
-                total += itemTotal;
-
-                const itemElement = document.createElement('div');
-                itemElement.className = 'cart-item';
-                itemElement.innerHTML = `
-            <img src="/assets/${cartItem.item.toLowerCase().replace(/ /g, '-')}.jpg" alt="${cartItem.item}">
-            <span>${cartItem.item}</span>
-            <span>Price: ₹${cartItem.price}</span>
-            <input type="number" value="${cartItem.quantity}" min="1" class="quantity-input" data-item="${cartItem.item}">
-            <button class="remove-btn" data-item="${cartItem.item}">Remove</button>
-            <span>Total: ₹${itemTotal}</span>
-        `;
-                cartItemsContainer.appendChild(itemElement);
+                    addToCart(name, price, quantity);
+                });
             });
 
-            const totalElement = document.createElement('div');
-            totalElement.className = 'total';
-            totalElement.innerHTML = `Total: ₹${total}`;
-            cartItemsContainer.appendChild(totalElement);
-        }
+            function addToCart(name, price, quantity) {
+                const existingItem = cart.find(cartItem => cartItem.name === name);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({ name, price, quantity });
+                }
+                updateCart();
+                localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to localStorage
+            }
 
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.getAttribute('data-item');
-                const price = parseInt(button.getAttribute('data-price'));
-                addToCart(item, price);
+            function updateCart() {
+                let totalItems = 0;
+                let totalPrice = 0;
+
+                cart.forEach((cartItem, index) => {
+                    totalItems += cartItem.quantity;
+                    totalPrice += cartItem.price * cartItem.quantity;
+                });
+
+                cartLink.textContent = `Cart (${totalItems})`;
+
+                // Add item numbers in the cart display (if you have a cart display on the page)
+                const cartDisplay = document.getElementById('cart-display');
+                if (cartDisplay) {
+                    cartDisplay.innerHTML = ''; // Clear existing display
+                    cart.forEach((cartItem, index) => {
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'cart-item';
+                        itemElement.innerHTML = `
+    <p>Item ${index + 1}: ${cartItem.name}</p>
+    <p>Quantity: ${cartItem.quantity}</p>
+    <p>Price: ₹${cartItem.price}</p>
+    <p>Total: ₹${cartItem.price * cartItem.quantity}</p>
+    `;
+                        cartDisplay.appendChild(itemElement);
+                    });
+                }
+            }
+
+            // Checkout functionality
+            const checkoutButton = document.getElementById('checkout-btn');
+            checkoutButton.addEventListener('click', function () {
+                if (cart.length === 0) {
+                    alert('Your cart is empty!');
+                } else {
+                    let cartSummary = 'Your Cart:\n';
+                    cart.forEach((cartItem, index) => {
+                        cartSummary += `Item ${index + 1}: ${cartItem.name} - ${cartItem.quantity} x ₹${cartItem.price}\n`;
+                    });
+                    cartSummary += `Total: ₹${cart.reduce((sum, cartItem) => sum + cartItem.price * cartItem.quantity, 0)}`;
+
+                    alert(cartSummary);
+                }
             });
+
+            // Initialize cart link display
+            updateCart();
         });
-
-        document.addEventListener('click', event => {
-            if (event.target.classList.contains('remove-btn')) {
-                const item = event.target.getAttribute('data-item');
-                removeFromCart(item);
-                renderCheckoutPage();
-            }
-        });
-
-        document.addEventListener('change', event => {
-            if (event.target.classList.contains('quantity-input')) {
-                const item = event.target.getAttribute('data-item');
-                const quantity = parseInt(event.target.value);
-                updateQuantity(item, quantity);
-                renderCheckoutPage();
-            }
-        });
-
-        // Call this function on page load for the checkout page
-        if (window.location.pathname.includes('/checkout')) {
-            renderCheckoutPage();
-        }
-
-        // Initialize the cart count on page load
-        updateCartCount();
-
     </script>
+
 
 </body>
 

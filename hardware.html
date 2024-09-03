@@ -77,6 +77,15 @@
             z-index: 1;
         }
 
+        .card .price {
+            font-weight: bold;
+            color: #e55b4e;
+            font-size: 18px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+        }
+
         .filter-options {
             position: absolute;
             top: 20px;
@@ -155,22 +164,15 @@
 
         .card .price {
             display: block;
-            margin: 10px 0;
+            margin: 10px 41px;
             font-weight: bold;
-            color: #e55b4e;
-            /* Change color to something that stands out */
+            color: #000000;
             font-size: 18px;
-            /* Increase font size for better visibility */
-            background-color: #f8f8f8;
-            /* Add a background color */
-            padding: 8px 12px;
-            /* Add some padding for better appearance */
-            border-radius: 5px;
-            /* Rounded corners */
+            background-color: #cecece;
+            padding: 15px 20px;
+            border-radius: 20px;
             border: 1px solid #ddd;
-            /* Add a border */
         }
-
 
         .card {
             background-color: white;
@@ -281,6 +283,48 @@
             background-color: #ddd;
         }
 
+        /* Search Bar Container */
+        .search-bar-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        /* Search Input Field */
+        .search-input {
+            width: 200px;
+            /* Adjust width as needed */
+            padding: 10px;
+            font-size: 14px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            outline: none;
+            background-color: #f9f9f9;
+        }
+
+        /* Search Button */
+        .search-button {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #e55b4e;
+            transform: scale(1.05);
+        }
+
+        .search-button:focus {
+            outline: none;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header {
@@ -345,6 +389,12 @@
             <a href="checkout.html" class="nav-link" id="cart-link">Cart</a>
         </nav>
     </header>
+
+    <section class="search-bar-section">
+        <input type="text" id="search-bar" placeholder="Search as product..." class="search-input" />
+        <button id="search-btn" class="search-button">Search</button>
+    </section>
+
 
     <section class="category-detail-section">
         <h2 id="electrical-title">Hardware</h2>
@@ -460,6 +510,25 @@
     </footer>
 
     <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchBar = document.getElementById('search-bar');
+            const cards = document.querySelectorAll('.card');
+
+            searchBar.addEventListener('input', function () {
+                const query = searchBar.value.toLowerCase();
+
+                cards.forEach(card => {
+                    const itemName = card.querySelector('span').textContent.toLowerCase();
+                    if (itemName.includes(query)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             const filterButtons = document.querySelectorAll('.filter-btn');
             const cards = document.querySelectorAll('.card');
