@@ -8,35 +8,39 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: fangsong, sans-serif;
+            font-family: sans-serif;
             margin: 0;
             padding: 0;
         }
 
         .header {
-            padding: 10px;
+            padding: 10px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #ffffff;
+            position: relative;
         }
 
         .logo {
-            height: 60px;
-            width: 60px;
+            height: 100px;
+            width: 100px;
+            vertical-align: middle;
             border-radius: 50%;
         }
 
         nav {
             display: flex;
             align-items: center;
-            gap: 10px;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
         }
 
         .nav-link {
             color: black;
             text-decoration: none;
-            font-size: 18px;
+            margin: 0 15px;
+            font-size: 20px;
             padding: 8px 15px;
             transition: background-color 0.3s, color 0.3s;
             border-radius: 3px;
@@ -61,19 +65,27 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('paints.jpg');
+            background-image: url('img/paints.jpg');
             background-size: cover;
             background-position: center;
             opacity: 0.2;
             z-index: -1;
         }
 
+        .category-detail-section>* {
+            position: relative;
+            z-index: 1;
+        }
+
         /* Filter Dropdown Styles */
 
         .filter-options {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            padding: 10px;
+            z-index: 2;
         }
 
         .filter-dropdown {
@@ -86,19 +98,11 @@
             background-color: #ff6f61;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
+            transition: background-color 0.3s;
             font-size: 14px;
-        }
-
-        .grid-toggle-btn {
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 6px 10px;
-            margin-left: 10px;
-            cursor: pointer;
+            text-align: center;
         }
 
         .filter-btn-main:hover {
@@ -135,34 +139,32 @@
             transition: background-color 0.3s;
         }
 
-        .filter-list .filter-btn:last-child {
-            border-bottom: none;
-        }
-
-        .filter-list .filter-btn:hover {
-            background-color: #f1f1f1;
-        }
-
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 20px;
             padding: 20px;
+            margin-top: 20px;
         }
 
         .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 15px;
+            padding: 20px;
+            position: relative;
         }
 
         .card img {
             width: 100%;
+            height: auto;
             max-height: 150px;
             object-fit: contain;
+            transition: transform 0.3s;
         }
 
         .card span {
@@ -170,75 +172,53 @@
             margin: 10px 0;
             font-weight: bold;
             color: #333;
+            font-size: 1.2em;
+            /* Increased font size for better readability */
         }
 
-        .card .price {
-            display: block;
-            margin: 10px 41px;
-            font-weight: bold;
-            color: #000000;
-            font-size: 18px;
-            background-color: #cecece;
-            padding: 15px 20px;
-            border-radius: 20px;
-            border: 1px solid #ddd;
+        .card .item-price {
+            font-size: 1.2em;
+            color: #28a745;
+            margin: 10px 0;
         }
 
         .card .add-to-cart-btn {
+            display: inline-block;
             background-color: #ff6f61;
             color: white;
             padding: 10px 20px;
+            border: none;
             border-radius: 5px;
             text-decoration: none;
             font-size: 16px;
             margin: 10px 0;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .card .add-to-cart-btn:hover {
-            background-color: #218838;
+            background-color: #2f8041;
             transform: scale(1.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         .card:hover img {
             transform: scale(1.1);
         }
 
-        .cart {
-            position: fixed;
-            top: 120px;
-            left: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        .cart.hidden {
-            display: none;
-        }
-
-        #checkout-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        #checkout-btn:hover {
-            background-color: #0056b3;
+        .price {
+            background-color: #cecece;
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 1px solid #000000;
         }
 
         .footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
             position: static;
-            bottom: 0;
             width: 100%;
         }
 
@@ -248,25 +228,22 @@
             margin: 20px 0;
         }
 
-        .page-link {
-            padding: 10px 15px;
-            margin: 0 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-decoration: none;
+        .pagination a {
             color: black;
-            transition: background-color 0.3s, color 0.3s;
+            padding: 8px 17px;
+            text-decoration: blink;
+            margin: 0 5px;
+            border-radius: 35%;
+            background-color: #ffffff;
         }
 
-        .page-link:hover {
+        .pagination a.active {
             background-color: #ff6f61;
             color: white;
         }
 
-        .page-link.active {
-            background-color: #ff6f61;
-            color: white;
-            border-color: #ff6f61;
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
         }
 
         /* Search Bar Container */
@@ -279,11 +256,10 @@
         /* Search Input Field */
         .search-input {
             width: 200px;
-            /* Adjust width as needed */
             padding: 10px;
             font-size: 14px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #838383;
+            border-radius: 30px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             outline: none;
             background-color: #f9f9f9;
@@ -296,7 +272,7 @@
             color: #fff;
             background-color: #ff6f61;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
             margin-left: 10px;
             transition: background-color 0.3s, transform 0.3s;
@@ -311,11 +287,9 @@
             outline: none;
         }
 
-
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
-                align-items: flex-start;
             }
 
             .nav {
@@ -327,29 +301,33 @@
             .card-container {
                 grid-template-columns: repeat(1, 1fr);
             }
+
+            .search-input {
+                width: 60%;
+                font-size: 14px;
+            }
+
+            .search-button {
+                padding: 8px;
+                font-size: 14px;
+                width: 30%;
+            }
         }
     </style>
 </head>
 
 <body>
     <header class="header">
-        <img src="logo.png" alt="Sri Matha Traders Logo" class="logo">
+        <img src="img/logo.png" alt="Sri Matha Traders Logo" class="logo">
         <nav>
             <a href="index.html" class="nav-link">Home</a>
             <a href="electrical.html" class="nav-link">Electrical</a>
             <a href="checkout.html" class="nav-link">Checkout</a>
-            <a href="paints.html" class="nav-link">Paints</a>
         </nav>
     </header>
 
-    <section class="search-bar-section">
-        <input type="text" id="search-bar" placeholder="Search as product..." class="search-input" />
-        <button id="search-btn" class="search-button">Search</button>
-    </section>
-
-
     <section class="category-detail-section">
-        <br><br>
+        <br>
 
         <h2 id="paint-title">Paints</h2>
         <p>Discover our wide range of quality paints, perfect for any surface.</p>
@@ -372,12 +350,18 @@
                 </div>
             </div>
         </div>
+        <br>
+
+        <section class="search-bar-section">
+            <input type="text" id="search-bar" placeholder="Search product..." class="search-input" />
+            <button id="search-btn" class="search-button">Search</button>
+        </section>
 
         <div class="card-container">
             <!-- Enamel -->
 
             <div class="card" data-type="enamel">
-                <img src="enamel.jpg" alt="Enamel Paint">
+                <img src="img/enamel.jpg" alt="Enamel Paint">
                 <span>White - 1 lt</span>
                 <span class="price">Price : ₹320</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
@@ -385,7 +369,7 @@
             </div>
 
             <div class="card" data-type="enamel">
-                <img src="enamel.jpg" alt="Enamel Paint">
+                <img src="img/enamel.jpg" alt="Enamel Paint">
                 <span>Yellow - 1 lt</span>
                 <span class="price">Price : ₹320</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
@@ -393,7 +377,7 @@
             </div>
 
             <div class="card" data-type="enamel">
-                <img src="enamel.jpg" alt="Enamel Paint">
+                <img src="img/enamel.jpg" alt="Enamel Paint">
                 <span>Black - 1 lt</span>
                 <span class="price">Price : ₹300</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
@@ -402,7 +386,7 @@
 
 
             <div class="card" data-type="enamel">
-                <img src="enamel.jpg" alt="Enamel Paint">
+                <img src="img/enamel.jpg" alt="Enamel Paint">
                 <span>White - 1/2 lt</span>
                 <span class="price">Price : ₹220</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 1/2 lt" data-price="100" data-quantity="1">Add
@@ -410,7 +394,7 @@
             </div>
 
             <div class="card" data-type="enamel">
-                <img src="enamel.jpg" alt="Enamel Paint">
+                <img src="img/enamel.jpg" alt="Enamel Paint">
                 <span>Yellow - 1/2 lt</span>
                 <span class="price">Price : ₹220</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 1 lt" data-price="200" data-quantity="1">Add
@@ -418,7 +402,7 @@
             </div>
 
             <div class="card" data-type="enamel">
-                <img src="enamel.jpg" alt="Enamel Paint">
+                <img src="img/enamel.jpg" alt="Enamel Paint">
                 <span>Black - 1/2 lt</span>
                 <span class="price">Price : ₹200</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 1 lt" data-price="200" data-quantity="1">Add
@@ -427,7 +411,7 @@
 
 
             <div class="card" data-type="enamel">
-                <img src="enamel.jpg" alt="Enamel Paint">
+                <img src="img/enamel.jpg" alt="Enamel Paint">
                 <span>Gloss Enamel - 4 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Gloss Enamel - 4 lt" data-price="500" data-quantity="1">Add
@@ -436,7 +420,7 @@
 
             <!-- Tractor Emulsion -->
             <div class="card" data-type="Tractor">
-                <img src="tractor.jpg" alt="Tractor Paint">
+                <img src="img/tractor.jpg" alt="Tractor Paint">
                 <span>Tractor Emulsion - 1 lt</span>
                 <span class="price">Price : ₹700</span>
                 <button class="add-to-cart-btn" data-item="Tractor - 1 lt" data-price="700" data-quantity="1">Add to
@@ -444,21 +428,21 @@
             </div>
 
             <div class="card" data-type="Tractor">
-                <img src="tractor.jpg" alt="Tractor Paint">
+                <img src="img/tractor.jpg" alt="Tractor Paint">
                 <span>Tractor Emulsion - 4 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Tractor">
-                <img src="tractor.jpg" alt="Tractor Paint">
+                <img src="img/tractor.jpg" alt="Tractor Paint">
                 <span>Tractor Emulsion - 10 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Tractor">
-                <img src="tractor.jpg" alt="Tractor Paint">
+                <img src="img/tractor.jpg" alt="Tractor Paint">
                 <span>Tractor Emulsion - 20 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Tractor">Add to Cart</button>
@@ -467,28 +451,28 @@
             <!-- Ace Exterior Emulsion -->
 
             <div class="card" data-type="Ace">
-                <img src="ace.jpg" alt="Ace Paint">
+                <img src="img/ace.jpg" alt="Ace Paint">
                 <span>Ace - 1 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Ace">
-                <img src="ace.jpg" alt="Ace Paint">
+                <img src="img/ace.jpg" alt="Ace Paint">
                 <span>Ace - 4 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Ace">
-                <img src="ace.jpg" alt="Ace Paint">
+                <img src="img/ace.jpg" alt="Ace Paint">
                 <span>Ace - 10 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Ace">
-                <img src="ace.jpg" alt="Ace Paint">
+                <img src="img/ace.jpg" alt="Ace Paint">
                 <span>Ace - 20 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Ace">Add to Cart</button>
@@ -498,28 +482,28 @@
 
 
             <div class="card" data-type="Apex">
-                <img src="apex.jpg" alt="Apex Paint">
+                <img src="img/apex.jpg" alt="Apex Paint">
                 <span>Apex - 1 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Apex">
-                <img src="apex.jpg" alt="Apex Paint">
+                <img src="img/apex.jpg" alt="Apex Paint">
                 <span>Apex - 4lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Apex">
-                <img src="apex.jpg" alt="Apex Paint">
+                <img src="img/apex.jpg" alt="Apex Paint">
                 <span>Apex - 10 lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Apex">
-                <img src="apex.jpg" alt="Apex Paint">
+                <img src="img/apex.jpg" alt="Apex Paint">
                 <span>Apex - 20lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Apex">Add to Cart</button>
@@ -528,28 +512,28 @@
             <!-- Premium -->
 
             <div class="card" data-type="Premium">
-                <img src="Premium.jpg" alt="Premium">
+                <img src="img/Premium.jpg" alt="Premium">
                 <span>Premium - 1lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Premium">
-                <img src="Premium4.jpg" alt="Premium">
+                <img src="img/Premium4.jpg" alt="Premium">
                 <span>Premium - 4lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Premium">
-                <img src="Premium4.jpg" alt="Premium">
+                <img src="img/Premium4.jpg" alt="Premium">
                 <span>Premium - 10lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Premium">
-                <img src="Premium4.jpg" alt="Premium">
+                <img src="img/Premium4.jpg" alt="Premium">
                 <span>Premium - 20lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Premium">Add to Cart</button>
@@ -559,7 +543,7 @@
             <!-- Apex Ultima -->
 
             <div class="card" data-type="Apex Ultima">
-                <img src="ultima.jpg" alt="Apex Ultima Paint">
+                <img src="img/ultima.jpg" alt="Apex Ultima Paint">
                 <span>Apex Ultima - 1lt</span>
                 <span class="price">Price : ₹1200</span>
                 <button class="add-to-cart-btn" data-item="Apex Ultima - 1lt" data-price="1200" data-quantity="1">Add to
@@ -568,7 +552,7 @@
 
 
             <div class="card" data-type="Apex Ultima">
-                <img src="ultima.jpg" alt="Apex Ultima Paint">
+                <img src="img/ultima.jpg" alt="Apex Ultima Paint">
                 <span>Apex Ultima - 4lt</span>
                 <span class="price">Price : ₹1800</span>
                 <button class="add-to-cart-btn" data-item="Apex Ultima - 4lt" data-price="1800" data-quantity="1">Add to
@@ -577,7 +561,7 @@
 
 
             <div class="card" data-type="Apex Ultima">
-                <img src="ultima.jpg" alt="Apex Ultima Paint">
+                <img src="img/ultima.jpg" alt="Apex Ultima Paint">
                 <span>Apex Ultima - 10lt</span>
                 <span class="price">Price : 2700</span>
                 <button class="add-to-cart-btn" data-item="Apex Ultima - 10lt" data-price="2700" data-quantity="1">Add
@@ -586,7 +570,7 @@
 
 
             <div class="card" data-type="Apex Ultima">
-                <img src="ultima.jpg" alt="Apex Ultima Paint">
+                <img src="img/ultima.jpg" alt="Apex Ultima Paint">
                 <span>Apex Ultima - 20lt</span>
                 <span class="price">Price : ₹3800</span>
                 <button class="add-to-cart-btn" data-item="Apex Ultima - 20lt" data-price="3800" data-quantity="1">Add
@@ -597,28 +581,28 @@
             <!-- Roayal Luxury  -->
 
             <div class="card" data-type="Royal luxury">
-                <img src="royal.jpg" alt="Royal Paint">
+                <img src="img/royal.jpg" alt="Royal Paint">
                 <span>Royal luxury - 1lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal luxury">
-                <img src="royal.jpg" alt="Royal Paint">
+                <img src="img/royal.jpg" alt="Royal Paint">
                 <span>Royal luxury - 4lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal luxury">
-                <img src="royal.jpg" alt="Royal Paint">
+                <img src="img/royal.jpg" alt="Royal Paint">
                 <span>Royal luxury - 10lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal luxury">
-                <img src="royal.jpg" alt="Royal Paint">
+                <img src="img/royal.jpg" alt="Royal Paint">
                 <span>Royal luxury - 20lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal luxury">Add to Cart</button>
@@ -627,28 +611,28 @@
             <!-- Royal shine -->
 
             <div class="card" data-type="Royal shine">
-                <img src="royal_shine.jpg" alt="Royal Shine Paint">
+                <img src="img/royal_shine.jpg" alt="Royal Shine Paint">
                 <span>Royal shine - 1lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal shine">
-                <img src="royal_shine.jpg" alt="Royal Shine Paint">
+                <img src="img/royal_shine.jpg" alt="Royal Shine Paint">
                 <span>Royal shine - 4lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal shine">
-                <img src="royal_shine.jpg" alt="Royal Shine Paint">
+                <img src="img/royal_shine.jpg" alt="Royal Shine Paint">
                 <span>Royal shine - 10lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Royal shine">
-                <img src="royal_shine.jpg" alt="Royal Shine Paint">
+                <img src="img/royal_shine.jpg" alt="Royal Shine Paint">
                 <span>Royal shine - 20lt</span>
                 <span class="price">Price : ₹</span>
                 <button class="add-to-cart-btn" data-item="Royal shine">Add to Cart</button>
@@ -657,42 +641,42 @@
             <!-- brush  -->
 
             <div class="card" data-type="Brush">
-                <img src="Paintbrush.jpg" alt="Brush">
+                <img src="img/Paintbrush.jpg" alt="Brush">
                 <span>Brush 1/2" </span>
                 <span class="price">Price : ₹15</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
-                <img src="Paintbrush.jpg" alt="Brush">
+                <img src="img/Paintbrush.jpg" alt="Brush">
                 <span>Brush 1" </span>
                 <span class="price">Price : ₹25</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
-                <img src="Paintbrush.jpg" alt="Brush">
+                <img src="img/Paintbrush.jpg" alt="Brush">
                 <span>Brush 2" </span>
                 <span class="price">Price : ₹40</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
-                <img src="Paintbrush.jpg" alt="Brush">
+                <img src="img/Paintbrush.jpg" alt="Brush">
                 <span>Brush 3" </span>
                 <span class="price">Price : ₹50</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
-                <img src="Paintbrush.jpg" alt="Brush">
+                <img src="img/Paintbrush.jpg" alt="Brush">
                 <span>Brush 4" </span>
                 <span class="price">Price : ₹120</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
             </div>
 
             <div class="card" data-type="Brush">
-                <img src="Paintbrush.jpg" alt="Brush">
+                <img src="img/Paintbrush.jpg" alt="Brush">
                 <span>Brush 5" </span>
                 <span class="price">Price : ₹130</span>
                 <button class="add-to-cart-btn" data-item="Brush">Add to Cart</button>
@@ -701,14 +685,14 @@
             <!-- roller -->
 
             <div class="card" data-type="roller">
-                <img src="roller.jpg" alt="Brush">
+                <img src="img/roller.jpg" alt="Brush">
                 <span>Roller 8" </span>
                 <span class="price">Price : ₹130</span>
                 <button class="add-to-cart-btn" data-item="roller">Add to Cart</button>
             </div>
 
             <div class="card" data-type="roller">
-                <img src="roller.jpg" alt="Brush">
+                <img src="img/roller.jpg" alt="Brush">
                 <span>Roller 4" </span>
                 <span class="price">Price :₹70 </span>
                 <button class="add-to-cart-btn" data-item="roller">Add to Cart</button>
@@ -722,7 +706,6 @@
         <a href="#" class="page-link" data-page="1">1</a>
         <a href="#" class="page-link" data-page="2">2</a>
         <a href="#" class="page-link" data-page="3">3</a>
-        <!-- Add more page links as needed -->
     </div>
 
 
@@ -733,8 +716,6 @@
 
 
     <script>
-        // JavaScript code for Paints - Sri Matha Traders
-
         document.addEventListener('DOMContentLoaded', function () {
             const searchBar = document.getElementById('search-bar');
             const cards = document.querySelectorAll('.card');

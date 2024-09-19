@@ -30,9 +30,14 @@
             max-width: 800px;
             margin: 50px auto;
             background: #fff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .checkout-container:hover {
+            transform: translateY(-5px);
         }
 
         /* Heading Styles */
@@ -40,7 +45,7 @@
             text-align: center;
             font-size: 2.5em;
             margin-bottom: 20px;
-            color: #555;
+            color: #007bff;
         }
 
         /* Cart Items Container */
@@ -54,8 +59,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 15px 10px;
             border-bottom: 1px solid #ddd;
+            transition: background 0.3s;
+        }
+
+        .cart-item:hover {
+            background-color: #f9f9f9;
         }
 
         .cart-item p {
@@ -80,9 +90,9 @@
         /* Total Amount Container */
         .total-container {
             text-align: right;
-            padding: 10px;
+            padding: 15px;
             margin-top: 20px;
-            background: #f7f7f7;
+            background: #e9ecef;
             border-radius: 5px;
             font-size: 1.5em;
             color: #111;
@@ -103,18 +113,18 @@
             transition: background 0.3s ease;
         }
 
-        .btn-primary:hover {
+        .btn:hover {
             background: #0056b3;
         }
 
         /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             .checkout-container {
-                padding: 15px;
+                padding: 20px;
             }
 
             .checkout-container h1 {
-                font-size: 1.8em;
+                font-size: 2em;
             }
 
             .cart-item {
@@ -133,11 +143,11 @@
 
         @media (max-width: 480px) {
             .checkout-container {
-                padding: 10px;
+                padding: 15px;
             }
 
             .checkout-container h1 {
-                font-size: 1.5em;
+                font-size: 1.7em;
             }
 
             .total-container {
@@ -161,21 +171,26 @@
 <body>
     <div class="checkout-container">
         <h1>Checkout</h1>
-        <div id="cart-items" class="cart-items-container">
-            <!-- Cart items will be rendered here by JavaScript -->
-        </div>
+        <div id="cart-items" class="cart-items-container"></div>
+
+        <!-- Added checkout list here -->
+        <ul id="checkout-list"></ul>
+
         <div class="total-container">
             <h2>Total Amount: ₹<span id="total-value">0.00</span></h2>
         </div>
-        <button id="place-order-btn" class="btn btn-primary">Place Order</button>
+        <button id="place-order-btn" class="btn">Place Order</button>
     </div>
 
     <script>
-        // Function to render cart items and calculate total amount
-        function renderCart() {
+        window.addEventListener('DOMContentLoaded', function () {
+            const cart = JSON.parse(decodeURIComponent(getQueryParameter('cart'))) || [];
+            renderCart(cart);
+        });
+
+        function renderCart(cart) {
             const cartItemsContainer = document.getElementById('cart-items');
             const totalValueElement = document.getElementById('total-value');
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];  // Fetch the cart from localStorage
             let totalAmount = 0;
 
             // Clear the cart container
@@ -189,13 +204,13 @@
                     const itemElement = document.createElement('div');
                     itemElement.className = 'cart-item';
                     itemElement.innerHTML = `
-                        <p>${index + 1}.</p>
-                        <p>${item.name}</p>
-                        <p>Quantity: ${item.quantity}</p>
-                        <p>Price: ₹${item.price}</p>
-                        <p>Total: ₹${item.price * item.quantity}</p>
-                        <button class="delete-btn" data-index="${index}">&#10005;</button>
-                    `;
+                <p>${index + 1}.</p>
+                <p>${item.name}</p>
+                <p>Quantity: ${item.quantity}</p>
+                <p>Price: ₹${item.price.toFixed(2)}</p>
+                <p>Total: ₹${(item.price * item.quantity).toFixed(2)}</p>
+                <button class="delete-btn" data-index="${index}">&#10005;</button>
+            `;
                     cartItemsContainer.appendChild(itemElement);
 
                     // Calculate total amount
@@ -207,39 +222,41 @@
             }
         }
 
-        // Function to handle item removal
-        function removeItem(index) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.splice(index, 1);  // Remove item at the specified index
-            localStorage.setItem('cart', JSON.stringify(cart));  // Save updated cart to localStorage
-            renderCart();  // Re-render cart and update total amount
+        // Function to get query parameter by name
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
         }
 
-        // Call renderCart when the page loads
-        window.addEventListener('DOMContentLoaded', function () {
-            renderCart();
-
-            // Handle delete button clicks
-            document.getElementById('cart-items').addEventListener('click', function (event) {
-                if (event.target.classList.contains('delete-btn')) {
-                    const index = event.target.getAttribute('data-index');
-                    removeItem(index);
-                }
-            });
-
-            // Handle place order button
-            document.getElementById('place-order-btn').addEventListener('click', () => {
-                if (JSON.parse(localStorage.getItem('cart')).length === 0) {
-                    alert('Your cart is empty!');
-                } else {
-                    alert('Order placed successfully!');
-                    localStorage.removeItem('cart');
-                    renderCart();
-                }
-            });
+        // Handle delete button clicks (if needed)
+        document.getElementById('cart-items').addEventListener('click', function (event) {
+            if (event.target.classList.contains('delete-btn')) {
+                const index = event.target.getAttribute('data-index');
+                removeItem(index);
+            }
         });
-    </script>
 
+        // Function to handle item removal (optional)
+        function removeItem(index) {
+            const cart = JSON.parse(decodeURIComponent(getQueryParameter('cart'))) || [];
+            cart.splice(index, 1);
+
+            const cartString = encodeURIComponent(JSON.stringify(cart));
+            window.location.href = `checkout.html?cart=${cartString}`; // Redirect to updated cart
+        }
+
+        // Handle place order button
+        document.getElementById('place-order-btn').addEventListener('click', () => {
+            const cart = JSON.parse(decodeURIComponent(getQueryParameter('cart'))) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+            } else {
+                alert('Order placed successfully!');
+                // Here, you can redirect or clear the cart as needed
+            }
+        });
+
+    </script>
 </body>
 
 </html>
