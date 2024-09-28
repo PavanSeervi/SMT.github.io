@@ -8,11 +8,26 @@
     <link rel="stylesheet" href="styles.css">
 
     <style>
-        body {
-            font-family: sans-serif;
+        /* Global Styles */
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-image: url('background-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Header Styles */
 
         .header {
             padding: 10px 10px;
@@ -20,6 +35,8 @@
             align-items: center;
             justify-content: space-between;
             position: relative;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
         }
 
         .logo {
@@ -38,7 +55,7 @@
         }
 
         .nav-link {
-            color: black;
+            color: #337ab7;
             text-decoration: none;
             margin: 0 15px;
             font-size: 20px;
@@ -52,11 +69,16 @@
             color: #fff;
         }
 
+        /* Category Detail Section Styles */
+
         .category-detail-section {
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .category-detail-section::before {
@@ -66,7 +88,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('img/plumbing.jpg');
+            background-image: url('img/paints.jpg');
             background-size: cover;
             background-position: center;
             opacity: 0.2;
@@ -78,13 +100,11 @@
             z-index: 1;
         }
 
-        /* Filter Dropdown Styles */
-
+        /* Filter Dropdown Styles with Smooth Transition */
         .filter-options {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: auto;
+            display: flex;
+            justify-content: flex-end;
+            /* Right-align the filter button */
             padding: 10px;
             z-index: 2;
         }
@@ -95,50 +115,95 @@
         }
 
         .filter-btn-main {
-            padding: 6px 30px;
+            padding: 10px 40px;
             background-color: #ff6f61;
             color: #fff;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 14px;
+            transition: all 0.4s ease;
+            font-size: 16px;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .filter-btn-main:hover {
             background-color: #e55b4e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
 
         .filter-list {
             display: none;
+            /* Initially hidden */
             position: absolute;
-            background-color: #ffffff;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            right: 0;
+            /* Aligns to the right */
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             z-index: 1;
-            border-radius: 5px;
-            margin-top: 5px;
-            padding: 10px;
-            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            padding: 15px;
+            width: 200px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            /* Smooth open/close transition */
         }
 
-        .filter-dropdown:hover .filter-list,
-        .filter-list:hover {
+        .filter-list.show {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
+            /* Slide down the dropdown */
         }
 
         .filter-list .filter-btn {
             display: block;
             width: 100%;
             text-align: left;
-            padding: 10px;
+            padding: 12px 15px;
             background-color: white;
             color: black;
             border: none;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border-radius: 5px;
         }
+
+        .filter-list .filter-btn:last-child {
+            border-bottom: none;
+        }
+
+        .filter-list .filter-btn:hover {
+            background-color: #ff6f61;
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .filter-list .filter-btn:active {
+            background-color: #e55b4e;
+            transform: translateY(-2px);
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+        /* Card Styles */
 
         .card-container {
             display: grid;
@@ -174,7 +239,6 @@
             font-weight: bold;
             color: #333;
             font-size: 1.2em;
-            /* Increased font size for better readability */
         }
 
         .card .item-price {
@@ -218,10 +282,21 @@
             border: 1px solid #000000;
         }
 
+        /* Footer Styles */
+
         .footer {
-            position: static;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
             width: 100%;
         }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+
+        /* Pagination Styles */
 
         .pagination {
             display: flex;
@@ -232,7 +307,7 @@
         .pagination a {
             color: black;
             padding: 8px 17px;
-            text-decoration: blink;
+            text-decoration: none;
             margin: 0 5px;
             border-radius: 35%;
             background-color: #ffffff;
@@ -247,46 +322,73 @@
             background-color: #ddd;
         }
 
+        /* Search Section Styles */
         /* Search Bar Container */
-        .search-bar-section {
-            display: flex;
-            justify-content: center;
-            margin: 20px auto;
+        .search-container {
+            position: relative;
+            width: 400px;
+            /* Adjust the width of the search bar */
+            margin: 0 auto;
+            /* Center the search bar horizontally */
         }
 
         /* Search Input Field */
         .search-input {
-            width: 200px;
-            padding: 10px;
-            font-size: 14px;
-            border: 2px solid #838383;
-            border-radius: 30px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 12px 20px;
+            padding-right: 60px;
+            /* Space for the search icon */
+            border: none;
+            border-radius: 50px;
+            /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Soft shadow */
+            font-size: 16px;
             outline: none;
-            background-color: #f9f9f9;
+            background-color: #fff;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: #ccc;
+            /* Light gray placeholder */
         }
 
         /* Search Button */
-        .search-button {
-            padding: 10px 20px;
-            font-size: 14px;
-            color: #fff;
-            background-color: #ff6f61;
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            /* Adjust positioning inside the search bar */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            /* Dark background for the button */
             border: none;
-            border-radius: 30px;
+            border-radius: 50%;
             cursor: pointer;
-            margin-left: 10px;
-            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Soft shadow on the button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
         }
 
-        .search-button:hover {
-            background-color: #e55b4e;
-            transform: scale(1.05);
+        .search-btn:hover {
+            background-color: #555;
+            /* Slightly lighter on hover */
         }
 
-        .search-button:focus {
-            outline: none;
+        /* Search Icon */
+        .search-btn i {
+            color: #fff;
+            /* White search icon */
+            font-size: 18px;
         }
+
+
 
         @media (max-width: 768px) {
             .header {
@@ -331,7 +433,9 @@
         <br><br>
 
         <h2 id="paint-title">Plumbing</h2>
-        <p>Explore our selection of plumbing supplies for your projects.</p>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search...">
+        </div>
 
 
         <div class="filter-options">
@@ -347,11 +451,6 @@
         </div>
 
         <br>
-
-        <section class="search-bar-section">
-            <input type="text" id="search-bar" placeholder="Search product..." class="search-input" />
-            <button id="search-btn" class="search-button">Search</button>
-        </section>
 
         <div class="card-container">
 
@@ -568,120 +667,60 @@
     </div>
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function () {
-            const searchBar = document.getElementById('search-bar');
-            const cards = document.querySelectorAll('.card');
-
-            searchBar.addEventListener('input', function () {
-                const query = searchBar.value.toLowerCase();
-
-                cards.forEach(card => {
-                    const itemName = card.querySelector('span').textContent.toLowerCase();
-                    if (itemName.includes(query)) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+            // Toggle the dropdown on button click
+            document.querySelector('.filter-btn-main').addEventListener('click', function () {
+                const dropdown = document.querySelector('.filter-list');
+                dropdown.classList.toggle('show'); // Add or remove the 'show' class
             });
-        });
 
-        document.addEventListener('DOMContentLoaded', function () {
+            // Close the dropdown if clicked outside
+            window.addEventListener('click', function (event) {
+                const dropdown = document.querySelector('.filter-list');
+                if (!event.target.closest('.filter-dropdown') && !event.target.closest('.filter-btn-main')) {
+                    dropdown.classList.remove('show'); // Close the dropdown if clicked outside
+                }
+            });
+
             // Filter functionality
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const cards = document.querySelectorAll('.card');
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function () {
+            document.querySelectorAll('.filter-btn').forEach(function (filterBtn) {
+                filterBtn.addEventListener('click', function () {
                     const filterValue = this.getAttribute('data-filter');
-                    filterCards(filterValue);
-                });
-            });
+                    const cards = document.querySelectorAll('.card');
 
-            function filterCards(filterValue) {
-                cards.forEach(card => {
-                    const cardType = card.getAttribute('data-type');
-                    if (filterValue === 'all' || cardType === filterValue) {
-                        card.style.display = 'block';
+                    // Show all cards if filter is "all"
+                    if (filterValue === 'all') {
+                        cards.forEach(function (card) {
+                            card.style.display = 'block';
+                        });
                     } else {
-                        card.style.display = 'none';
+                        cards.forEach(function (card) {
+                            // Hide cards that don't match the filter value
+                            if (card.getAttribute('data-category') === filterValue) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
                     }
                 });
-            }
-
-
-            // Add to cart functionality
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const cartLink = document.getElementById('cart-link');
-
-            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    const name = this.getAttribute('data-item');
-                    const price = parseInt(this.getAttribute('data-price'));
-                    const quantity = parseInt(this.getAttribute('data-quantity'));
-
-                    addToCart(name, price, quantity);
-                });
             });
 
-            function addToCart(name, price, quantity) {
-                const existingItem = cart.find(cartItem => cartItem.name === name);
-                if (existingItem) {
-                    existingItem.quantity += quantity;
-                } else {
-                    cart.push({ name, price, quantity });
-                }
-                updateCart();
-                localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to localStorage
-            }
+            // Search functionality
+            document.querySelector('.search-input').addEventListener('input', function () {
+                const searchQuery = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.card');
 
-            function updateCart() {
-                let totalItems = 0;
-                let totalPrice = 0;
-
-                cart.forEach((cartItem, index) => {
-                    totalItems += cartItem.quantity;
-                    totalPrice += cartItem.price * cartItem.quantity;
+                cards.forEach(function (card) {
+                    const cardContent = card.textContent.toLowerCase();
+                    if (cardContent.includes(searchQuery)) {
+                        card.style.display = 'block'; // Show card if it matches the search query
+                    } else {
+                        card.style.display = 'none'; // Hide card if it doesn't match
+                    }
                 });
-
-                cartLink.textContent = `Cart (${totalItems})`;
-
-                // Add item numbers in the cart display (if you have a cart display on the page)
-                const cartDisplay = document.getElementById('cart-display');
-                if (cartDisplay) {
-                    cartDisplay.innerHTML = ''; // Clear existing display
-                    cart.forEach((cartItem, index) => {
-                        const itemElement = document.createElement('div');
-                        itemElement.className = 'cart-item';
-                        itemElement.innerHTML = `
-    <p>Item ${index + 1}: ${cartItem.name}</p>
-    <p>Quantity: ${cartItem.quantity}</p>
-    <p>Price: ₹${cartItem.price}</p>
-    <p>Total: ₹${cartItem.price * cartItem.quantity}</p>
-    `;
-                        cartDisplay.appendChild(itemElement);
-                    });
-                }
-            }
-
-            // Checkout functionality
-            const checkoutButton = document.getElementById('checkout-btn');
-            checkoutButton.addEventListener('click', function () {
-                if (cart.length === 0) {
-                    alert('Your cart is empty!');
-                } else {
-                    let cartSummary = 'Your Cart:\n';
-                    cart.forEach((cartItem, index) => {
-                        cartSummary += `Item ${index + 1}: ${cartItem.name} - ${cartItem.quantity} x ₹${cartItem.price}\n`;
-                    });
-                    cartSummary += `Total: ₹${cart.reduce((sum, cartItem) => sum + cartItem.price * cartItem.quantity, 0)}`;
-
-                    alert(cartSummary);
-                }
             });
-
-            // Initialize cart link display
-            updateCart();
         });
     </script>
 

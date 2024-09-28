@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('#categories-section').scrollIntoView({ behavior: 'smooth' });
     });
 
-    // Additional animation effect for buttons (optional)
+    // Additional animation effect for buttons
     const animatedButtons = document.querySelectorAll('#explore-btn, .nav-link');
     animatedButtons.forEach(btn => {
         btn.addEventListener('mouseover', function () {

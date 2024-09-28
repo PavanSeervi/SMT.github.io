@@ -42,11 +42,15 @@ body {
     padding: 8px 15px;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 3px;
+    transform: scale(1);
+    /* Initial state */
+    transition: transform 0.3s ease;
 }
 
 .nav-link:hover {
     background-color: #ff6f61;
     color: #fff;
+    transform: scale(1.05);
 }
 
 .nav-link.active {
@@ -108,24 +112,24 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 18px;
+    transform: scale(1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-#explore-btn {
-    transition: transform 0.3s, background-color 0.3s;
+#explore-btn:hover {
+    background-color: #ff4b3a;
+    transform: scale(1.05);
 }
 
-/* Smooth animation for buttons */
 .animated {
     transition: transform 0.3s, background-color 0.3s;
     transform: scale(1.05);
-    /* Slightly enlarges the button on hover */
 }
 
 
 #explore-btn:hover {
     background-color: #ff4b3a;
 }
-
 
 .categories-section h3 {
     color: #333;

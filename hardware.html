@@ -4,14 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrical - Sri Matha Traders</title>
+    <title>Hardware - Sri Matha Traders</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: fangsong, sans-serif;
+        /* Global Styles */
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-image: url('background-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Header Styles */
 
         .header {
             padding: 10px 10px;
@@ -19,6 +34,8 @@
             align-items: center;
             justify-content: space-between;
             position: relative;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
         }
 
         .logo {
@@ -37,7 +54,7 @@
         }
 
         .nav-link {
-            color: black;
+            color: #337ab7;
             text-decoration: none;
             margin: 0 15px;
             font-size: 20px;
@@ -51,11 +68,16 @@
             color: #fff;
         }
 
+        /* Category Detail Section Styles */
+
         .category-detail-section {
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .category-detail-section::before {
@@ -65,7 +87,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('img/hardware.jpg');
+            background-image: url('img/paints.jpg');
             background-size: cover;
             background-position: center;
             opacity: 0.2;
@@ -77,20 +99,11 @@
             z-index: 1;
         }
 
-        .card .price {
-            font-weight: bold;
-            color: #e55b4e;
-            font-size: 18px;
-            padding: 8px 12px;
-            border-radius: 5px;
-            border: 2px solid #ddd;
-        }
-
+        /* Filter Dropdown Styles with Smooth Transition */
         .filter-options {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: auto;
+            display: flex;
+            justify-content: flex-end;
+            /* Right-align the filter button */
             padding: 10px;
             z-index: 2;
         }
@@ -101,49 +114,63 @@
         }
 
         .filter-btn-main {
-            padding: 6px 30px;
+            padding: 10px 40px;
             background-color: #ff6f61;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 14px;
+            transition: all 0.4s ease;
+            font-size: 16px;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .filter-btn-main:hover {
             background-color: #e55b4e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
 
         .filter-list {
             display: none;
+            /* Initially hidden */
             position: absolute;
-            background-color: #ffffff;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            right: 0;
+            /* Aligns to the right */
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             z-index: 1;
-            border-radius: 5px;
-            margin-top: 5px;
-            padding: 10px;
-            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            padding: 15px;
+            width: 200px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            /* Smooth open/close transition */
         }
 
-        .filter-dropdown:hover .filter-list,
-        .filter-list:hover {
+        .filter-list.show {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
+            /* Slide down the dropdown */
         }
 
         .filter-list .filter-btn {
             display: block;
             width: 100%;
             text-align: left;
-            padding: 10px;
+            padding: 12px 15px;
             background-color: white;
             color: black;
             border: none;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border-radius: 5px;
         }
 
         .filter-list .filter-btn:last-child {
@@ -151,36 +178,50 @@
         }
 
         .filter-list .filter-btn:hover {
-            background-color: #f1f1f1;
+            background-color: #ff6f61;
+            color: #fff;
+            transform: translateX(5px);
         }
+
+        .filter-list .filter-btn:active {
+            background-color: #e55b4e;
+            transform: translateY(-2px);
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+        /* Card Styles */
 
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 20px;
             padding: 20px;
-            margin-top: 100px;
-        }
-
-        .card .price {
-            display: block;
-            margin: 10px 41px;
-            font-weight: bold;
-            color: #000000;
-            font-size: 18px;
-            background-color: #cecece;
-            padding: 15px 20px;
-            border-radius: 20px;
-            border: 1px solid #ddd;
+            margin-top: 20px;
         }
 
         .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 15px;
+            padding: 20px;
+            position: relative;
         }
 
         .card img {
@@ -196,6 +237,13 @@
             margin: 10px 0;
             font-weight: bold;
             color: #333;
+            font-size: 1.2em;
+        }
+
+        .card .item-price {
+            font-size: 1.2em;
+            color: #28a745;
+            margin: 10px 0;
         }
 
         .card .add-to-cart-btn {
@@ -209,55 +257,45 @@
             font-size: 16px;
             margin: 10px 0;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .card .add-to-cart-btn:hover {
-            background-color: #218838;
+            background-color: #2f8041;
             transform: scale(1.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         .card:hover img {
             transform: scale(1.1);
         }
 
-        .cart {
-            position: fixed;
-            top: 120px;
-            left: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+        .price {
+            background-color: #cecece;
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 1px solid #000000;
         }
 
-        .cart.hidden {
-            display: none;
-        }
-
-        #checkout-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        #checkout-btn:hover {
-            background-color: #0056b3;
-        }
+        /* Footer Styles */
 
         .footer {
             background-color: #333;
-            color: white;
+            color: #fff;
+            padding: 20px;
             text-align: center;
-            padding: 10px 0;
-            position: static;
-            bottom: 0;
             width: 100%;
         }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+
+        /* Pagination Styles */
 
         .pagination {
             display: flex;
@@ -267,11 +305,11 @@
 
         .pagination a {
             color: black;
-            padding: 8px 16px;
+            padding: 8px 17px;
             text-decoration: none;
             margin: 0 5px;
-            border-radius: 5px;
-            background-color: #f1f1f1;
+            border-radius: 35%;
+            background-color: #ffffff;
         }
 
         .pagination a.active {
@@ -283,90 +321,98 @@
             background-color: #ddd;
         }
 
+        /* Search Section Styles */
         /* Search Bar Container */
-        .search-bar-section {
-            display: flex;
-            justify-content: center;
-            margin: 20px auto;
+        .search-container {
+            position: relative;
+            width: 400px;
+            /* Adjust the width of the search bar */
+            margin: 0 auto;
+            /* Center the search bar horizontally */
         }
 
         /* Search Input Field */
         .search-input {
-            width: 200px;
-            /* Adjust width as needed */
-            padding: 10px;
-            font-size: 14px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 12px 20px;
+            padding-right: 60px;
+            /* Space for the search icon */
+            border: none;
+            border-radius: 50px;
+            /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Soft shadow */
+            font-size: 16px;
             outline: none;
-            background-color: #f9f9f9;
+            background-color: #fff;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: #ccc;
+            /* Light gray placeholder */
         }
 
         /* Search Button */
-        .search-button {
-            padding: 10px 20px;
-            font-size: 14px;
-            color: #fff;
-            background-color: #ff6f61;
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            /* Adjust positioning inside the search bar */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            /* Dark background for the button */
             border: none;
-            border-radius: 5px;
+            border-radius: 50%;
             cursor: pointer;
-            margin-left: 10px;
-            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Soft shadow on the button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
         }
 
-        .search-button:hover {
-            background-color: #e55b4e;
-            transform: scale(1.05);
+        .search-btn:hover {
+            background-color: #555;
+            /* Slightly lighter on hover */
         }
 
-        .search-button:focus {
-            outline: none;
+        /* Search Icon */
+        .search-btn i {
+            color: #fff;
+            /* White search icon */
+            font-size: 18px;
         }
 
-        /* Responsive Design */
+
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
-                align-items: center;
             }
 
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .nav-link {
-                margin: 0 10px;
-                font-size: 14px;
-            }
-
-            .card img {
-                max-height: 120px;
-            }
-
-            .footer {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
+            .nav {
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
+                gap: 5px;
             }
 
-            .header h1 {
-                font-size: 18px;
+            .card-container {
+                grid-template-columns: repeat(1, 1fr);
             }
 
-            .nav-link {
-                display: block;
-                margin: 5px 0;
+            .search-input {
+                width: 60%;
+                font-size: 14px;
             }
 
-            .card img {
-                max-height: 100px;
+            .search-button {
+                padding: 8px;
+                font-size: 14px;
+                width: 30%;
             }
         }
     </style>
@@ -382,15 +428,11 @@
         </nav>
     </header>
 
-    <section class="search-bar-section">
-        <input type="text" id="search-bar" placeholder="Search product..." class="search-input" />
-        <button id="search-btn" class="search-button">Search</button>
-    </section>
-
-
     <section class="category-detail-section">
         <h2 id="electrical-title">Hardware</h2>
-        <p>Explore our range of Hardware products for your needs.</p>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search...">
+        </div>
 
         <div class="filter-options">
             <div class="filter-dropdown">
@@ -504,39 +546,57 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
-            const searchBar = document.getElementById('search-bar');
-            const cards = document.querySelectorAll('.card');
+            // Toggle the dropdown on button click
+            document.querySelector('.filter-btn-main').addEventListener('click', function () {
+                const dropdown = document.querySelector('.filter-list');
+                dropdown.classList.toggle('show'); // Add or remove the 'show' class
+            });
 
-            searchBar.addEventListener('input', function () {
-                const query = searchBar.value.toLowerCase();
+            // Close the dropdown if clicked outside
+            window.addEventListener('click', function (event) {
+                const dropdown = document.querySelector('.filter-list');
+                if (!event.target.closest('.filter-dropdown') && !event.target.closest('.filter-btn-main')) {
+                    dropdown.classList.remove('show'); // Close the dropdown if clicked outside
+                }
+            });
 
-                cards.forEach(card => {
-                    const itemName = card.querySelector('span').textContent.toLowerCase();
-                    if (itemName.includes(query)) {
-                        card.style.display = '';
+            // Filter functionality
+            document.querySelectorAll('.filter-btn').forEach(function (filterBtn) {
+                filterBtn.addEventListener('click', function () {
+                    const filterValue = this.getAttribute('data-filter');
+                    const cards = document.querySelectorAll('.card');
+
+                    // Show all cards if filter is "all"
+                    if (filterValue === 'all') {
+                        cards.forEach(function (card) {
+                            card.style.display = 'block';
+                        });
                     } else {
-                        card.style.display = 'none';
+                        cards.forEach(function (card) {
+                            // Hide cards that don't match the filter value
+                            if (card.getAttribute('data-category') === filterValue) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
                     }
                 });
             });
-        });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const cards = document.querySelectorAll('.card');
 
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const filter = button.getAttribute('data-filter');
+            // Search functionality
+            document.querySelector('.search-input').addEventListener('input', function () {
+                const searchQuery = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.card');
 
-                    // Filter the cards
-                    cards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                cards.forEach(function (card) {
+                    const cardContent = card.textContent.toLowerCase();
+                    if (cardContent.includes(searchQuery)) {
+                        card.style.display = 'block'; // Show card if it matches the search query
+                    } else {
+                        card.style.display = 'none'; // Hide card if it doesn't match
+                    }
                 });
             });
         });
