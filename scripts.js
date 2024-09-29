@@ -10,29 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const targetElement = document.getElementById(targetId);
 
                 if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - document.querySelector('.header').offsetHeight,
-                        behavior: 'smooth'
-                    });
+                    smoothScrollTo(targetElement.offsetTop - document.querySelector('.header').offsetHeight, 2000);
                 }
             }
         });
     });
 
-    // Smooth animation for Explore button
-    const exploreBtn = document.getElementById('explore-btn');
-    exploreBtn.addEventListener('click', function () {
-        document.querySelector('#categories-section').scrollIntoView({ behavior: 'smooth' });
-    });
 
-    // Additional animation effect for buttons
-    const animatedButtons = document.querySelectorAll('#explore-btn, .nav-link');
-    animatedButtons.forEach(btn => {
-        btn.addEventListener('mouseover', function () {
-            this.classList.add('animated');
-        });
-        btn.addEventListener('mouseout', function () {
-            this.classList.remove('animated');
-        });
-    });
 });

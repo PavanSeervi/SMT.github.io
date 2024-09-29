@@ -15,7 +15,7 @@
             <a href="index.html" class="nav-link" aria-label="Home">Home</a>
             <a href="#categories-section" class="nav-link" id="product-categories-link"
                 aria-label="Product Categories">Product</a>
-            <a href="#about-section" class="nav-link" id="about-link" aria-label="About Us">Our Story</a>
+            <a href="#about-section" class="nav-link" id="about-link" aria-label="About Us">About</a>
             <a href="checkout.html" class="nav-link" id="cart-link" aria-label="Shopping Cart">Cart</a>
         </nav>
     </header>
@@ -23,8 +23,11 @@
     <section class="welcome-section">
         <h2>Welcome to Sri Matha Traders</h2>
         <p>Your one-stop shop for Paints, Electrical, Hardware, Sanitary, and Plumbing supplies.</p>
-        <button id="explore-btn" aria-label="Explore Product Categories">Explore Now</button>
+        <button id="explore-btn"
+            onclick="document.getElementById('categories-section').scrollIntoView({behavior: 'smooth'})"
+            aria-label="Explore Product Categories">Explore Now</button>
     </section>
+    <br> <br>
 
     <section id="categories-section" class="categories-section">
         <h3>Product Categories</h3>
@@ -53,7 +56,7 @@
             </div>
         </div>
     </section>
-    <br> <br> <br>
+    <br> <br>
 
     <section id="about-section" class="about-section">
         <h2 class="section-title">About Us</h2>
@@ -73,6 +76,7 @@
                 the highest standards of quality and performance.</i>
         </p>
     </section>
+    <br>
 
     <footer class="footer">
         <p>&copy; 2023 Sri Matha Traders. All Rights Reserved. &#10084;</p>
